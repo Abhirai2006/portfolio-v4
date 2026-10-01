@@ -197,37 +197,55 @@ export const Route = createFileRoute("/api/chat")({
         if (!messages.length) return Response.json({ error: "No messages" }, { status: 400 });
 
         const system = BASE_PROMPT + (animeMode ? ANIME_ADDON : "");
-        const res = baseUrl
-          ? await fetch(`${baseUrl}/chat/completions`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-              body: JSON.stringify({
-                model,
-                stream: true,
-                messages: [{ role: "system", content: system }, ...messages],
-              }),
-            })
-          : await fetch(
-              `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse`,
-              {
+        const call = (m: string) =>
+          baseUrl
+            ? fetch(`${baseUrl}/chat/completions`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
                 body: JSON.stringify({
-                  systemInstruction: { parts: [{ text: system }] },
-                  contents: messages.map((m) => ({
-                    role: m.role === "assistant" ? "model" : "user",
-                    parts: [{ text: m.content }],
-                  })),
+                  model: m,
+                  stream: true,
+                  messages: [{ role: "system", content: system }, ...messages],
                 }),
-              },
-            );
+              })
+            : fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/${m}:streamGenerateContent?alt=sse`,
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+                  body: JSON.stringify({
+                    systemInstruction: { parts: [{ text: system }] },
+                    contents: messages.map((x) => ({
+                      role: x.role === "assistant" ? "model" : "user",
+                      parts: [{ text: x.content }],
+                    })),
+                  }),
+                },
+              );
+
+        // Gemini often answers 500/503 ("model overloaded") for a moment.
+        // Retry once on the main model, then fall back to a lighter one.
+        const fallback = process.env.AI_FALLBACK_MODEL ?? (baseUrl ? "" : "gemini-flash-lite-latest");
+        let res = await call(model);
+        if (res.status >= 500) {
+          console.error("AI upstream", res.status, "retrying", await res.text());
+          await new Promise((r) => setTimeout(r, 600));
+          res = await call(model);
+        }
+        if (res.status >= 500 && fallback && fallback !== model) {
+          console.error("AI upstream", res.status, "falling back to", fallback);
+          res = await call(fallback);
+        }
 
         if (res.status === 429) return Response.json({ error: "Getting a lot of questions right now — try again in a minute." }, { status: 429 });
         if (res.status === 402) return Response.json({ error: "AI quota exhausted." }, { status: 402 });
         if (!res.ok) {
           const t = await res.text();
           console.error("AI gateway error", res.status, t);
-          return Response.json({ error: "AI request failed." }, { status: 500 });
+          return Response.json(
+            { error: res.status >= 500 ? "The AI is busy right now — please try again in a few seconds." : "AI request failed." },
+            { status: 502 },
+          );
         }
 
         // Pass the upstream SSE stream straight through so the client can

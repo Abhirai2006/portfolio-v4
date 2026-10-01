@@ -9,7 +9,7 @@
 
 @font-face {
   font-family: "One Piece Accent";
-  src: url("/__l5e/assets-v1/053f8ee2-cc59-4cd8-b35b-a2cf3f47624d/one-piece-font.ttf") format("truetype");
+  src: url("/media/one-piece-font.ttf") format("truetype");
   font-display: swap;
   font-weight: 400;
   font-style: normal;

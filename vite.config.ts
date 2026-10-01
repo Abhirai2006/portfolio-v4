@@ -43,7 +43,18 @@ export default defineConfig(({ command, mode }) => {
         ? [nitro(
             process.env.NITRO_PRESET
               ? { preset: process.env.NITRO_PRESET }
-              : { defaultPreset: "cloudflare-module" },
+              : {
+                  defaultPreset: "cloudflare-module",
+                  cloudflare: {
+                    wrangler: {
+                      // Must match the Worker name in the Cloudflare dashboard.
+                      name: "portfolio",
+                      // Keep variables/secrets set in the dashboard on every deploy.
+                      keep_vars: true,
+                      observability: { enabled: true },
+                    },
+                  },
+                },
           )]
         : []),
       viteReact(),
