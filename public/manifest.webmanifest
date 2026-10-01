@@ -1,0 +1,12 @@
+{
+  "name": "Abhishek Rai A — ML Engineer",
+  "short_name": "Abhi.Rai",
+  "description": "Portfolio of Abhishek Rai A — B.E. AI & ML student, Mysore.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,13 @@
+- [x] Review motion feedback and font package
+- [x] Refresh Chapters 00–04 with internship and capstone data
+- [x] Add restrained One Piece font accent
+- [x] Align Ask Abhishek context with the current resume and verify content
+- [x] Add a genuine, session-deduplicated live visitor total
+- [x] Refresh README with current features, architecture, setup, and screenshots
+- [ ] Remove the visible portfolio URL from the résumé contact row
+- [ ] Restore the project-card “OPEN” cursor treatment without detached empty-space states
+- [ ] Replace the anime shelf and video vault with an Anime Atlas callout
+- [ ] Add Google Search Console verification and complete search-readiness checks
+- [ ] Apply only validated usability-audit improvements
+- [ ] Refresh README screenshots and copy for the current portfolio
+- [ ] Verify public pages, metadata, sitemap, mobile layout, and primary interactions
