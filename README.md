@@ -121,9 +121,19 @@ Copy `.env.example` to `.env` and fill it in:
 | `AI_BASE_URL` | runtime, optional | Set it to use an OpenAI-compatible provider (Groq, OpenRouter) instead of native Gemini. |
 | `GITHUB_TOKEN` | runtime, optional | Raises the GitHub API rate limit for the live activity section. |
 
+## Screenshots
+
+The images in `docs/screenshots/` can be regenerated from the live site (this also refreshes the hero with the current portrait):
+
+```bash
+npm i -D playwright && npx playwright install chromium
+node scripts/screenshots.mjs https://portfolio.abhirai2006.workers.dev
+```
+
 ## Database
 
 Reviews, anonymous analytics and the visitor counter live in Supabase. To set up your own project, create one at supabase.com, open the SQL Editor, and run `supabase/setup.sql` once. Then put the project URL and publishable key into the Supabase variables above. The individual migrations are in `supabase/migrations/` if you prefer the CLI.
+
 ## Assets
 
 All images, videos and the font live in `public/media/` and are referenced through the small `*.asset.json` files in `src/assets/`. The portrait is already there. On a fresh clone, run this once to pull the rest from the original site while it is still online:
