@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -11,12 +11,15 @@ export function MagicCard({
   className,
   radius = 320,
   style,
+  onPointerEnter,
+  onPointerLeave,
+  ...props
 }: {
   children: ReactNode;
   className?: string;
   radius?: number;
   style?: React.CSSProperties;
-}) {
+} & Pick<ComponentPropsWithoutRef<"div">, "onPointerEnter" | "onPointerLeave">) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: -9999, y: -9999 });
   const [on, setOn] = useState(false);
@@ -31,8 +34,11 @@ export function MagicCard({
       }}
       onMouseEnter={() => setOn(true)}
       onMouseLeave={() => setOn(false)}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
       style={style}
       className={cn("relative overflow-hidden rounded-2xl", className)}
+      {...props}
     >
       <div
         aria-hidden="true"

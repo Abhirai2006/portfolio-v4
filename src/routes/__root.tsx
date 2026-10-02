@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
@@ -56,7 +57,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
 
@@ -96,6 +97,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "P2DRuJ18Vnv9ODoBdeu9g8N8WJNXvirCetwE0pxIK2Y" },
       { title: "Abhishek Rai A - ML Engineer · Live Projects" },
       { name: "description", content: "Portfolio of Abhishek Rai A — B.E. AI & ML student, Bluemind Solutions intern, and builder of a Customer Churn Intelligence System." },
       { name: "author", content: "Abhishek Rai A" },

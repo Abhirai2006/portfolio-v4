@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/portfolio/Nav";
-import { TechniqueVault } from "@/components/portfolio/TechniqueVault";
 import { AskAbhishek } from "@/components/portfolio/AskAbhishek";
 import { GithubLive } from "@/components/portfolio/GithubLive";
 import { ProjectModal, type Project } from "@/components/portfolio/ProjectModal";
@@ -11,13 +10,12 @@ import { SpotlightPortrait } from "@/components/portfolio/SpotlightPortrait";
 import { WordReveal } from "@/components/motion/word-reveal";
 import { Dock, DockIcon, DockItem, DockLabel } from "@/components/motion/dock";
 import { Magnetic } from "@/components/motion/magnetic";
-import { AnimatedNumber } from "@/components/motion/animated-number";
+import { Cursor } from "@/components/motion/cursor";
 import { hireMailto } from "@/lib/contact";
 import { PROJECTS } from "@/lib/projects";
 import { CommandPalette } from "@/components/portfolio/CommandPalette";
 import { track, observeSections, recordVisit } from "@/lib/analytics";
-import { InfiniteSlider } from "@/components/motion/infinite-slider";
-import { Home, User, Github, FolderGit2, Sparkles, Clapperboard, Mail } from "lucide-react";
+import { Home, User, Github, FolderGit2, Sparkles, Clapperboard, Mail, ArrowUpRight } from "lucide-react";
 import portrait from "@/assets/abhishek-portrait.jpg.asset.json";
 import { SITE } from "@/lib/site";
 
@@ -219,19 +217,6 @@ function Kpi({ k, sub }: { k: string; sub: string }) {
   );
 }
 
-function AnimatedKpi({ n, sub }: { n: number; sub: string }) {
-  return (
-    <div>
-      <div className="text-3xl font-display gold-text">
-        <AnimatedNumber value={n} />
-      </div>
-      <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mt-1">
-        {sub}
-      </div>
-    </div>
-  );
-}
-
 function VisitorKpi({ value }: { value: number | null }) {
   return (
     <div aria-live="polite">
@@ -412,8 +397,9 @@ function GithubSection() {
 
 /* ---------- PROJECTS ---------- */
 function Projects() {
-  const items: Project[] = PROJECTS;
+  const items = PROJECTS;
   const [active, setActive] = useState<Project | null>(null);
+  const [hoveringCard, setHoveringCard] = useState(false);
   return (
     <section id="projects" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="04" title="The Arsenal" />
@@ -428,6 +414,8 @@ function Projects() {
           <MagicCard
             key={p.title}
             style={{ animationDelay: `${idx * 0.7}s` }}
+            onPointerEnter={() => setHoveringCard(true)}
+            onPointerLeave={() => setHoveringCard(false)}
             className="breathe border border-border bg-card/50 hover:border-primary hover:shadow-xl hover:shadow-primary/10 transition-all"
           >
           <div className="group relative flex h-full flex-col">
@@ -453,7 +441,7 @@ function Projects() {
                   <div key={m.label}>
                     <dt className="sr-only">{m.label}</dt>
                     <dd className="font-display text-xl leading-none gold-text">{m.value}</dd>
-                    <dd className="mt-1 text-[10px] font-mono uppercase tracking-wide text-muted-foreground leading-tight">
+                    <dd className="mt-1 text-xs font-mono uppercase tracking-wide text-muted-foreground leading-tight">
                       {m.label}
                     </dd>
                   </div>
@@ -471,7 +459,7 @@ function Projects() {
             <div className="mt-auto px-6 pb-6 pt-1 flex flex-wrap items-center gap-4">
               <Link
                 to="/projects/$slug"
-                params={{ slug: PROJECTS[idx]!.slug }}
+                params={{ slug: p.slug }}
                 onClick={() => track("cta_click", `read_case_${p.title}`)}
                 className="relative z-10 text-[10px] font-mono uppercase tracking-widest text-accent hover:text-primary underline underline-offset-4 md:cursor-pointer"
               >
@@ -494,6 +482,12 @@ function Projects() {
         ))}
       </div>
       {active && <ProjectModal project={active} onClose={() => setActive(null)} />}
+      <Cursor visible={hoveringCard && !active}>
+        <div className="hidden items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-primary-foreground shadow-lg md:flex">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground animate-pulse" />
+          Open
+        </div>
+      </Cursor>
     </section>
   );
 }
@@ -516,64 +510,29 @@ function AskSection() {
 
 /* ---------- ANIME ---------- */
 function AnimeShelf() {
-  const top = [
-    ["One Piece", 1120],
-    ["Naruto", 721],
-    ["Hunter x Hunter", 148],
-    ["My Hero Academia", 138],
-    ["Dragon Ball", 125],
-    ["The Seven Deadly Sins", 96],
-    ["Attack on Titan", 89],
-    ["Haikyuu!!", 86],
-    ["Demon Slayer", 83],
-    ["Jujutsu Kaisen", 60],
-    ["Fire Force", 60],
-    ["Bleach", 50],
-    ["Sword Art Online", 49],
-    ["Jobless Reincarnation", 48],
-    ["Black Clover", 48],
-    ["Frieren", 38],
-  ];
   return (
     <section id="shelf" className="mx-auto max-w-6xl px-6 py-28">
-      <ChapterHeader n="06" title="Side Quest · Anime Shelf" />
-      <p className="mt-3 font-one-piece text-xl text-primary">Grand Line watch log</p>
-      <div className="mt-6 grid grid-cols-3 gap-4 max-w-lg">
-        <AnimatedKpi n={56} sub="Series + movies" />
-        <AnimatedKpi n={3653} sub="Episodes" />
-        <Kpi k="S" sub="One Piece" />
-      </div>
-      <div className="mt-10">
-        <InfiniteSlider gap={12} duration={35} speedOnHover={12}>
-          {top.map(([name, ep]) => (
-            <div
-              key={String(name)}
-              className="shrink-0 rounded-lg border border-border bg-card/60 px-4 py-2 font-mono text-xs flex items-center gap-3"
-            >
-              <span className="text-foreground">{name}</span>
-              <span className="text-primary">{ep}ep</span>
-            </div>
-          ))}
-        </InfiniteSlider>
-      </div>
-      <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-4 gap-2 font-mono text-xs">
-        {top.map(([name, ep], i) => (
-          <div
-            key={name}
-            className="flex items-center justify-between border border-border rounded-md px-3 py-2 bg-card/40"
-          >
-            <span className="flex items-center gap-2">
-              <span className="text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
-              <span>{name}</span>
-            </span>
-            <span className="text-primary">{ep}ep</span>
+      <ChapterHeader n="06" title="Side Quest" />
+      <a
+        href="https://abhi-anime-atlas.lovable.app/"
+        target="_blank"
+        rel="noreferrer"
+        onClick={() => track("cta_click", "anime_atlas")}
+        className="group mt-10 block overflow-hidden rounded-xl border border-border bg-card/50 p-6 transition-colors hover:border-primary sm:p-10"
+      >
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-3xl">
+            <p className="font-mono text-xs uppercase tracking-widest text-primary">A separate world I built</p>
+            <h2 className="mt-4 font-one-piece text-4xl leading-tight text-foreground sm:text-6xl">Abhi's Anime Shelf</h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              The Grand Line was too big for one portfolio section—so I built it its own world: a scroll-driven 3D shelf of 60 titles, with mood-based AI picks, random discoveries, and live visitor recommendations.
+            </p>
           </div>
-        ))}
-      </div>
-      <p className="mt-6 text-xs font-mono text-muted-foreground">
-        領域展開 · 全集中 · 葬送 · 計画通り · 自由の翼 · 76,750 min watched
-      </p>
-      <TechniqueVault />
+          <span className="inline-flex shrink-0 items-center gap-2 font-mono text-sm uppercase tracking-widest text-primary">
+            Explore the shelf <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true" />
+          </span>
+        </div>
+      </a>
     </section>
   );
 }

@@ -124,7 +124,7 @@ export function AskAbhishek() {
             abhi's.ai · {animeMode ? "anime mode 🌀" : "online"}
           </span>
         </div>
-        <span className="font-mono text-[10px] text-muted-foreground">Powered by AI</span>
+        <span className="font-mono text-xs text-muted-foreground">Powered by AI</span>
       </div>
       <div ref={scrollRef} className="h-[380px] overflow-y-auto px-5 py-4 space-y-4">
         {messages.map((m, i) => (
@@ -157,14 +157,14 @@ export function AskAbhishek() {
         )}
       </div>
       <div className="border-t border-border px-5 py-3 space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-wrap gap-2">
+        <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-start">
+          <div className="grid gap-2 sm:grid-cols-2">
             {SUGGESTED.map((s) => (
               <button
                 key={s}
                 onClick={() => send(s)}
                 disabled={loading}
-                className="text-[11px] px-2.5 py-1 rounded-full border border-border text-muted-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-40"
+                className="px-3 py-1.5 text-left text-xs rounded-full border border-border text-muted-foreground hover:border-primary hover:text-primary transition-colors disabled:opacity-40"
               >
                 {s}
               </button>
@@ -175,7 +175,7 @@ export function AskAbhishek() {
             onClick={() => setAnimeMode((v) => !v)}
             aria-pressed={animeMode}
             title="Toggle Anime Mode (easter egg)"
-            className={`shrink-0 ml-2 inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest rounded-full border px-2.5 py-1 transition-colors ${
+            className={`shrink-0 inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest rounded-full border px-3 py-1.5 transition-colors ${
               animeMode
                 ? "border-accent text-accent bg-accent/10"
                 : "border-border text-muted-foreground hover:border-primary hover:text-primary"

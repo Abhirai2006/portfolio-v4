@@ -40,7 +40,7 @@ export function Nav() {
           <a
             href={hireMailto}
             aria-label="Email Abhishek about a role"
-            className="rounded-full border border-primary/60 text-primary px-4 py-1.5 text-xs font-semibold uppercase tracking-widest hover:bg-primary hover:text-primary-foreground transition-colors"
+            className="rounded-full border border-primary/60 text-primary px-5 py-2.5 text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
           >
             Hire me →
           </a>

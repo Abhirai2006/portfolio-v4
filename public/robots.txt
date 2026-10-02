@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOUR-DOMAIN/sitemap.xml
+Sitemap: https://portfolio.abhirai2006.workers.dev/sitemap.xml
