@@ -124,7 +124,6 @@ Copy `.env.example` to `.env` and fill it in:
 ## Database
 
 Reviews, anonymous analytics and the visitor counter live in Supabase. To set up your own project, create one at supabase.com, open the SQL Editor, and run `supabase/setup.sql` once. Then put the project URL and publishable key into the Supabase variables above. The individual migrations are in `supabase/migrations/` if you prefer the CLI.
-
 ## Assets
 
 All images, videos and the font live in `public/media/` and are referenced through the small `*.asset.json` files in `src/assets/`. The portrait is already there. On a fresh clone, run this once to pull the rest from the original site while it is still online:
