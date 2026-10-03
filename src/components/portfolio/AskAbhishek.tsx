@@ -17,7 +17,7 @@ export function AskAbhishek() {
     {
       role: "assistant",
       content:
-        "Hi — I'm the assistant trained on Abhishek's resume and projects. Ask me anything about his background, projects, or availability.",
+        "Hi, I'm the assistant for Abhishek's portfolio. I only know what's on his resume and in his projects. Ask me about his background, his projects, or whether he's available.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -43,7 +43,7 @@ export function AskAbhishek() {
         body: JSON.stringify({ messages: next, animeMode }),
       });
       if (!res.ok || !res.body) {
-        let msg = "Sorry — something went wrong.";
+        let msg = "Sorry, something went wrong.";
         try {
           const err = (await res.json()) as { error?: string };
           if (err.error) msg = err.error;
@@ -88,7 +88,7 @@ export function AskAbhishek() {
               });
             }
           } catch {
-            /* partial frame — ignore */
+            /* partial frame, ignore */
           }
         }
       }
@@ -97,7 +97,7 @@ export function AskAbhishek() {
           const copy = [...m];
           const last = copy[copy.length - 1];
           if (last && last.role === "assistant" && !last.content) {
-            copy[copy.length - 1] = { ...last, content: "Sorry — no reply came through. Try again." };
+            copy[copy.length - 1] = { ...last, content: "Sorry, no reply came through. Try again." };
           }
           return copy;
         });
@@ -197,7 +197,7 @@ export function AskAbhishek() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={animeMode ? "Ask away — expect the occasional anime detour…" : "Ask about Abhishek's projects, skills, availability…"}
+            placeholder={animeMode ? "Ask away, but expect the occasional anime detour…" : "Ask about Abhishek's projects, skills, availability…"}
             className="flex-1 bg-background border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-primary transition-colors"
           />
           <button
