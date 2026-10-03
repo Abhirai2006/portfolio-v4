@@ -9,7 +9,10 @@ const QUESTIONS: Q[] = [
     options: [
       { label: "A fight that shakes the ground", tags: ["Action", "Shounen"] },
       { label: "Something that quietly guts me", tags: ["Drama", "Slice of Life"] },
-      { label: "A puzzle I can't stop turning over", tags: ["Mystery", "Psychological", "Thriller"] },
+      {
+        label: "A puzzle I can't stop turning over",
+        tags: ["Mystery", "Psychological", "Thriller"],
+      },
       { label: "Another world to disappear into", tags: ["Fantasy", "Adventure", "Isekai"] },
     ],
   },
@@ -52,8 +55,7 @@ export function ShelfQuiz({ onOpen }: { onOpen: (id: string) => void }) {
     const scored = shelf
       .map((a) => ({
         a,
-        score:
-          a.genres.filter((g) => want.has(g)).length * 10 + Math.random() * 6,
+        score: a.genres.filter((g) => want.has(g)).length * 10 + Math.random() * 6,
       }))
       .sort((x, y) => y.score - x.score);
     return scored[0]?.a ?? null;
@@ -121,7 +123,7 @@ export function ShelfQuiz({ onOpen }: { onOpen: (id: string) => void }) {
                   {result.title}
                 </h3>
                 <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
-                  {result.genres.slice(0, 3).join(" · ")} — and yes, I&apos;ve watched all of it.
+                  {result.genres.slice(0, 3).join(" · ")}. And yes, I&apos;ve watched all of it.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <button
