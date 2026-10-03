@@ -31,6 +31,12 @@ export function Nav() {
             Reviews
           </Link>
           <Link
+            to="/anime"
+            className="hidden sm:inline text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+          >
+            Anime
+          </Link>
+          <Link
             to="/resume"
             className="hidden sm:inline text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
           >

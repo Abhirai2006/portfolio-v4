@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnimeRouteImport } from './routes/anime'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
+import { Route as ApiPublicPosterRouteImport } from './routes/api/public/poster'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnimeRoute = AnimeRouteImport.update({
+  id: '/anime',
+  path: '/anime',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResumeRoute = ResumeRouteImport.update({
@@ -46,66 +53,85 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPosterRoute = ApiPublicPosterRouteImport.update({
+  id: '/api/public/poster',
+  path: '/api/public/poster',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/anime': typeof AnimeRoute
   '/resume': typeof ResumeRoute
   '/reviews': typeof ReviewsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/api/public/poster': typeof ApiPublicPosterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/anime': typeof AnimeRoute
   '/resume': typeof ResumeRoute
   '/reviews': typeof ReviewsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/api/public/poster': typeof ApiPublicPosterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/anime': typeof AnimeRoute
   '/resume': typeof ResumeRoute
   '/reviews': typeof ReviewsRoute
   '/thank-you': typeof ThankYouRoute
   '/api/chat': typeof ApiChatRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/api/public/poster': typeof ApiPublicPosterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/anime'
     | '/resume'
     | '/reviews'
     | '/thank-you'
     | '/api/chat'
     | '/projects/$slug'
+    | '/api/public/poster'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/anime'
     | '/resume'
     | '/reviews'
     | '/thank-you'
     | '/api/chat'
     | '/projects/$slug'
+    | '/api/public/poster'
   id:
     | '__root__'
     | '/'
+    | '/anime'
     | '/resume'
     | '/reviews'
     | '/thank-you'
     | '/api/chat'
     | '/projects/$slug'
+    | '/api/public/poster'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnimeRoute: typeof AnimeRoute
   ResumeRoute: typeof ResumeRoute
   ReviewsRoute: typeof ReviewsRoute
   ThankYouRoute: typeof ThankYouRoute
   ApiChatRoute: typeof ApiChatRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
+  ApiPublicPosterRoute: typeof ApiPublicPosterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -115,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/anime': {
+      id: '/anime'
+      path: '/anime'
+      fullPath: '/anime'
+      preLoaderRoute: typeof AnimeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resume': {
@@ -152,16 +185,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/poster': {
+      id: '/api/public/poster'
+      path: '/api/public/poster'
+      fullPath: '/api/public/poster'
+      preLoaderRoute: typeof ApiPublicPosterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnimeRoute: AnimeRoute,
   ResumeRoute: ResumeRoute,
   ReviewsRoute: ReviewsRoute,
   ThankYouRoute: ThankYouRoute,
   ApiChatRoute: ApiChatRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
+  ApiPublicPosterRoute: ApiPublicPosterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

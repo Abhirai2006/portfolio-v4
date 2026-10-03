@@ -1,0 +1,282 @@
+/* Styles for the /anime page, carried over from the standalone shelf. */
+
+/* ---------- the room ---------- */
+
+.room-light {
+  background:
+    radial-gradient(120% 80% at 50% -10%, oklch(70% 0.17 240 / 0.16), transparent 60%),
+    radial-gradient(90% 60% at 50% 120%, oklch(75% 0.19 155 / 0.07), transparent 70%);
+}
+
+.anime-grain {
+  position: relative;
+}
+
+.anime-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- the shelf ---------- */
+
+.shelf-stage {
+  perspective: 1600px;
+  perspective-origin: 50% 42%;
+}
+
+.case-3d {
+  transform-style: preserve-3d;
+  transition:
+    transform 620ms var(--ease-shelf),
+    filter 420ms var(--ease-shelf),
+    opacity 420ms var(--ease-shelf);
+  will-change: transform;
+}
+
+.case-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.case-cover-face {
+  transform-origin: left center;
+  transform: rotateY(-90deg);
+}
+
+.case-top {
+  transform-origin: top center;
+  transform: rotateX(90deg);
+}
+
+.spine-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.08em;
+}
+
+@keyframes shelf-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) rotateX(-14deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.shelf-in {
+  animation: shelf-in 700ms var(--ease-shelf) both;
+}
+
+@keyframes caret {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.caret {
+  animation: caret 1.1s steps(1) infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- scroll gallery ---------- */
+
+.gallery-aura {
+  background:
+    radial-gradient(ellipse 38% 46% at 50% 54%, color-mix(in oklch, var(--active-spine) 28%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--background) 0%, color-mix(in oklch, var(--ink) 88%, var(--active-spine)) 58%, var(--background) 100%);
+}
+
+.curved-stage {
+  perspective: 1500px;
+  perspective-origin: 50% 54%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.curved-stage > .gallery-case {
+  pointer-events: auto;
+}
+
+.gallery-case {
+  transform:
+    translate(-50%, -50%)
+    translate3d(var(--gallery-x), var(--gallery-y), var(--gallery-z))
+    rotateY(var(--gallery-r))
+    scale(var(--gallery-scale));
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  transition: opacity 160ms linear, filter 240ms ease;
+  will-change: transform, opacity;
+}
+
+.gallery-case[aria-current="true"] .gallery-case-shell {
+  border-color: color-mix(in oklch, var(--primary) 70%, transparent);
+  box-shadow: 0 32px 90px -28px var(--glow), 0 24px 50px -24px oklch(0% 0 0 / 0.95);
+}
+
+.gallery-case:not([aria-current="true"]) {
+  filter: saturate(0.72) brightness(0.72);
+}
+
+.gallery-case:hover {
+  filter: saturate(1) brightness(1.08);
+}
+
+.gallery-case-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  z-index: 4;
+  background: linear-gradient(90deg, oklch(0% 0 0 / 0.62), transparent);
+  pointer-events: none;
+}
+
+.case-glint {
+  background: linear-gradient(112deg, transparent 28%, oklch(100% 0 0 / 0.16) 46%, transparent 62%);
+  transform: translateX(-80%);
+  transition: transform 700ms var(--ease-shelf);
+}
+
+.gallery-case:hover .case-glint,
+.gallery-case[aria-current="true"] .case-glint {
+  transform: translateX(75%);
+}
+
+.case-reflection {
+  transform: scaleY(-1);
+  mask-image: linear-gradient(to bottom, oklch(0% 0 0 / 0.5), transparent 82%);
+  filter: blur(1px);
+}
+
+.liquid-glass {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid oklch(100% 0 0 / 0.14);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(135deg, oklch(100% 0 0 / 0.11), transparent 45%),
+    color-mix(in oklch, var(--card) 68%, transparent);
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.13),
+    inset 0 -1px 0 oklch(0% 0 0 / 0.35),
+    0 18px 55px -30px oklch(0% 0 0 / 0.95);
+  backdrop-filter: blur(22px) saturate(1.35);
+}
+
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: -80% 40% 45% -30%;
+  border-radius: 50%;
+  background: oklch(100% 0 0 / 0.12);
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+html.light .liquid-glass {
+  border-color: oklch(19% 0.02 250 / 0.12);
+  background:
+    linear-gradient(135deg, oklch(100% 0 0 / 0.88), transparent 55%),
+    color-mix(in oklch, var(--card) 78%, transparent);
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.85),
+    inset 0 -1px 0 oklch(19% 0.02 250 / 0.08),
+    0 18px 55px -30px oklch(19% 0.02 250 / 0.35);
+}
+
+html.light .glass-icon-button {
+  border-color: oklch(19% 0.02 250 / 0.12);
+}
+
+.glass-icon-button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid oklch(100% 0 0 / 0.12);
+  border-radius: 50%;
+  color: var(--foreground);
+  transition: background-color 180ms ease, opacity 180ms ease;
+}
+
+.glass-icon-button:hover:not(:disabled) {
+  background: color-mix(in oklch, var(--primary) 22%, transparent);
+}
+
+.glass-icon-button:disabled {
+  opacity: 0.25;
+}
+
+/* quote wall + tier chips + dna strands */
+.quote-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 550ms ease,
+    transform 550ms ease;
+}
+.quote-fade.is-on {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tier-chip {
+  box-shadow: 0 6px 18px -12px hsl(var(--foreground) / 0.5);
+}
+.dna-strand {
+  transform-origin: left center;
+  animation: dna-grow 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes dna-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quote-fade,
+  .dna-strand {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* the portfolio's base heading tracking would tighten the shelf's Bebas headings */
+@layer base {
+  .anime-page :is(h1, h2, h3, h4) {
+    letter-spacing: normal;
+  }
+}

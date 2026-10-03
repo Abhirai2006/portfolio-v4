@@ -513,26 +513,24 @@ function AnimeShelf() {
   return (
     <section id="shelf" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="06" title="Side Quest" />
-      <a
-        href="https://anime.abhirai2006.workers.dev/"
-        target="_blank"
-        rel="noreferrer"
+      <Link
+        to="/anime"
         onClick={() => track("cta_click", "anime_atlas")}
         className="group mt-10 block overflow-hidden rounded-xl border border-border bg-card/50 p-6 transition-colors hover:border-primary sm:p-10"
       >
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
-            <p className="font-mono text-xs uppercase tracking-widest text-primary">A separate world I built</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-primary">Its own page</p>
             <h2 className="mt-4 font-one-piece text-4xl leading-tight text-foreground sm:text-6xl">Abhi's Anime Shelf</h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              The Grand Line was too big for one portfolio section—so I built it its own world: a scroll-driven 3D shelf of 60 titles, with mood-based AI picks, random discoveries, and live visitor recommendations.
+              The Grand Line was too big for one portfolio section—so it got its own page: a scroll-driven 3D shelf of 60 titles, with mood-based AI picks, random discoveries, and live visitor recommendations.
             </p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-2 font-mono text-sm uppercase tracking-widest text-primary">
             Explore the shelf <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true" />
           </span>
         </div>
-      </a>
+      </Link>
     </section>
   );
 }
