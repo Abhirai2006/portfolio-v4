@@ -15,7 +15,7 @@ The personal portfolio of **Abhishek Rai A**, a B.E. Artificial Intelligence & M
 - **Live Code Activity** with GitHub repository statistics, language mix, and a contribution heatmap fetched through cached server functions.
 - **The Arsenal** with project cards, accessible click-to-open previews, screenshot carousels, terminal output for the C++ suite, live-site links, repository links, and full case-study pages.
 - **Ask Abhishek** with streamed answers grounded in resume and lifestyle context. Anime Mode is optional and adds restrained Gen-Z phrasing and references from the anime shelf without changing factual answers.
-- **Anime side quest** linking to the standalone [Abhi's Anime Shelf](https://abhi-anime-atlas.lovable.app/), a scroll-driven 3D watch log with mood-based AI picks, random discovery, and visitor recommendations.
+- **Anime side quest** linking to the standalone [Abhi's Anime Shelf](https://anime.abhirai2006.workers.dev/), a scroll-driven 3D watch log with mood-based AI picks, random discovery, and visitor recommendations.
 - **Contact terminal** with the email and phone hidden until `cat contact.sh` is clicked, plus a copy-email action.
 - **Public résumé, reviews, thank-you, and custom 404 pages** with page-specific metadata and responsive layouts.
 - **A genuine visitor total** stored in Supabase. Each browser session is counted once, and the live distinct-session total is shown in the hero instead of using a placeholder number.

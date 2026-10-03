@@ -514,7 +514,7 @@ function AnimeShelf() {
     <section id="shelf" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="06" title="Side Quest" />
       <a
-        href="https://abhi-anime-atlas.lovable.app/"
+        href="https://anime.abhirai2006.workers.dev/"
         target="_blank"
         rel="noreferrer"
         onClick={() => track("cta_click", "anime_atlas")}
