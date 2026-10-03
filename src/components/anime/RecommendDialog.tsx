@@ -108,7 +108,7 @@ export function RecommendDialog({ onClose, onSaved }: Props) {
           <div className="px-6 py-10 text-center">
             <p className="font-bebas text-2xl tracking-wide">It's on the shelf.</p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Thanks{name.trim() ? `, ${name.trim()}` : ""} — I'll get to it.
+              Thanks{name.trim() ? `, ${name.trim()}` : ""}. I'll get to it.
             </p>
             <button
               type="button"
@@ -159,7 +159,7 @@ export function RecommendDialog({ onClose, onSaved }: Props) {
                         <div className="min-w-0">
                           <p className="truncate text-sm font-medium">{h.title}</p>
                           <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                            {h.year ?? "—"} · {h.subtype ?? "TV"}
+                            {h.year ?? "?"} · {h.subtype ?? "TV"}
                             {h.episodes ? ` · ${h.episodes} ep` : ""}
                           </p>
                         </div>
@@ -183,7 +183,7 @@ export function RecommendDialog({ onClose, onSaved }: Props) {
                   <div className="min-w-0">
                     <p className="text-sm font-semibold">{picked.title}</p>
                     <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                      {picked.year ?? "—"} · {picked.subtype ?? "TV"}
+                      {picked.year ?? "?"} · {picked.subtype ?? "TV"}
                     </p>
                     <button
                       type="button"
