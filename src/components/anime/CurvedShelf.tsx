@@ -158,7 +158,14 @@ export function CurvedShelf({ items, onOpen }: Props) {
                     </div>
                   </div>
                   <div className="case-reflection absolute left-0 top-full h-24 w-full overflow-hidden opacity-25">
-                    {anime.cover && <img src={anime.cover} alt="" aria-hidden className="h-full w-full object-cover" />}
+                    {anime.cover && (
+                      <img
+                        src={anime.cover}
+                        alt=""
+                        aria-hidden
+                        className="h-full w-full object-cover"
+                      />
+                    )}
                   </div>
                 </button>
               );
@@ -166,38 +173,39 @@ export function CurvedShelf({ items, onOpen }: Props) {
           </div>
 
           <div className="absolute bottom-5 left-1/2 z-[120] w-[min(92vw,560px)] -translate-x-1/2">
-          <div className="liquid-glass flex w-full items-center gap-4 px-4 py-3">
-            <button
-              type="button"
-              aria-label="Previous anime"
-              onClick={() => goTo(activeIndex - 1)}
-              disabled={activeIndex === 0}
-              className="glass-icon-button"
-            >
-              <ChevronLeft aria-hidden size={18} />
-            </button>
-            <div className="min-w-0 flex-1 text-center">
-              <p className="truncate text-sm font-semibold text-foreground">{active?.title}</p>
-              <div className="mx-auto mt-2 h-px w-full overflow-hidden bg-foreground/10">
-                <div
-                  className="h-full bg-primary transition-[width] duration-150"
-                  style={{ width: `${((activeIndex + 1) / items.length) * 100}%` }}
-                />
+            <div className="liquid-glass flex w-full items-center gap-4 px-4 py-3">
+              <button
+                type="button"
+                aria-label="Previous anime"
+                onClick={() => goTo(activeIndex - 1)}
+                disabled={activeIndex === 0}
+                className="glass-icon-button"
+              >
+                <ChevronLeft aria-hidden size={18} />
+              </button>
+              <div className="min-w-0 flex-1 text-center">
+                <p className="truncate text-sm font-semibold text-foreground">{active?.title}</p>
+                <div className="mx-auto mt-2 h-px w-full overflow-hidden bg-foreground/10">
+                  <div
+                    className="h-full bg-primary transition-[width] duration-150"
+                    style={{ width: `${((activeIndex + 1) / items.length) * 100}%` }}
+                  />
+                </div>
+                <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
+                  {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                  {String(items.length).padStart(2, "0")}
+                </p>
               </div>
-              <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
-                {String(activeIndex + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-              </p>
+              <button
+                type="button"
+                aria-label="Next anime"
+                onClick={() => goTo(activeIndex + 1)}
+                disabled={activeIndex === items.length - 1}
+                className="glass-icon-button"
+              >
+                <ChevronRight aria-hidden size={18} />
+              </button>
             </div>
-            <button
-              type="button"
-              aria-label="Next anime"
-              onClick={() => goTo(activeIndex + 1)}
-              disabled={activeIndex === items.length - 1}
-              className="glass-icon-button"
-            >
-              <ChevronRight aria-hidden size={18} />
-            </button>
-          </div>
           </div>
         </div>
       </section>
@@ -226,7 +234,12 @@ function SwipeShelf({ items, onOpen }: Props) {
           >
             <div className="relative aspect-[2/3] overflow-hidden rounded-[5px] border border-border bg-card shadow-2xl">
               {anime.cover ? (
-                <img src={anime.cover} alt="" loading="lazy" className="h-full w-full object-cover" />
+                <img
+                  src={anime.cover}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
               ) : (
                 <div className="flex h-full items-center justify-center p-5 text-center font-bebas text-3xl">
                   {anime.title}
@@ -234,7 +247,9 @@ function SwipeShelf({ items, onOpen }: Props) {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4">
-                <p className="font-bebas text-2xl leading-none text-case-foreground">{anime.title}</p>
+                <p className="font-bebas text-2xl leading-none text-case-foreground">
+                  {anime.title}
+                </p>
                 <p className="mt-1 font-mono text-[9px] uppercase tracking-widest text-case-foreground/65">
                   {anime.format === "movie" ? "Film" : `${anime.episodesWatched} episodes`}
                 </p>
