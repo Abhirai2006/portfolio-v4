@@ -30,7 +30,7 @@ export function AnimeCase({ anime, index, dimmed, onOpen }: Props) {
     <button
       type="button"
       onClick={() => onOpen(anime.id)}
-      aria-label={`${anime.title} — ${anime.episodesWatched} episodes watched`}
+      aria-label={`${anime.title}, ${anime.episodesWatched} episodes watched`}
       style={style}
       className={[
         "group relative z-0 shrink-0 origin-bottom cursor-pointer select-none rounded-[3px] outline-none hover:z-30 focus-visible:z-30",
@@ -75,7 +75,7 @@ export function AnimeCase({ anime, index, dimmed, onOpen }: Props) {
           }}
         />
 
-        {/* spine — the face you actually see on the shelf */}
+        {/* spine: the face you actually see on the shelf */}
         <div
           className="case-face w-full overflow-hidden rounded-[2px]"
           style={{
@@ -156,8 +156,8 @@ export function AnimeCase({ anime, index, dimmed, onOpen }: Props) {
         </p>
         <p className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
           {anime.format === "movie"
-            ? `Film · ${anime.year ?? "—"}`
-            : `${anime.episodesWatched} ep · ${anime.year ?? "—"}`}
+            ? `Film · ${anime.year ?? "?"}`
+            : `${anime.episodesWatched} ep · ${anime.year ?? "?"}`}
         </p>
       </div>
     </button>
