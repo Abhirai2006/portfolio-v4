@@ -69,7 +69,7 @@ Each project has shared data in `src/lib/projects.ts`, a case-study page at `/pr
 src/
 ├── routes/
 │   ├── __root.tsx                 Shared shell, metadata, fonts, 404, error boundary
-│   ├── index.tsx                  Main narrative portfolio chapters 00–07
+│   ├── index.tsx                  Main narrative portfolio chapters 00 to 07
 │   ├── resume.tsx                 Indexable, print-friendly résumé
 │   ├── reviews.tsx                Anonymous review form and published review wall
 │   ├── thank-you.tsx              Review submission confirmation
