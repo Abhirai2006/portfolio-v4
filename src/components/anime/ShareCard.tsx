@@ -108,7 +108,7 @@ export function ShareCard({ anime, collectionEpisodes, onClose }: Props) {
       ctx.fillStyle = muted;
       ctx.font = "400 30px ui-monospace, monospace";
       ctx.fillText(
-        `${anime.studio ?? "—"} · ${anime.year ?? "—"} · ${anime.genres.slice(0, 2).join(" / ")}`,
+        `${anime.studio ?? "?"} · ${anime.year ?? "?"} · ${anime.genres.slice(0, 2).join(" / ")}`,
         W / 2,
         1046,
       );
