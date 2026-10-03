@@ -7,13 +7,13 @@ import { SITE } from "@/lib/site";
 export const Route = createFileRoute("/thank-you")({
   head: () => ({
     meta: [
-      { title: "Thank You — Abhishek Rai A" },
+      { title: "Thank You | Abhishek Rai A" },
       {
         name: "description",
         content: "A personal thank-you from Abhishek Rai A for taking the time to visit and share feedback.",
       },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Thank You — Abhishek Rai A" },
+      { property: "og:title", content: "Thank You | Abhishek Rai A" },
       {
         property: "og:description",
         content: "Thanks for taking the time to visit Abhishek Rai A's portfolio.",
@@ -67,7 +67,7 @@ function ThankYouPage() {
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-          <p className="mt-12 font-script text-4xl text-primary/80">— Abhishek</p>
+          <p className="mt-12 font-script text-4xl text-primary/80">Abhishek</p>
         </section>
       </main>
     </div>

@@ -10,13 +10,13 @@ const PDF = "https://drive.google.com/file/d/1OaO_nbj7jrrgJY1JGp3CSh798Vh_rf8w/v
 export const Route = createFileRoute("/resume")({
   head: () => ({
     meta: [
-      { title: "Résumé — Abhishek Rai A · Aspiring ML Engineer" },
+      { title: "Résumé | Abhishek Rai A · Aspiring ML Engineer" },
       {
         name: "description",
         content:
-          "Résumé of Abhishek Rai A — B.E. Artificial Intelligence & Machine Learning, Mysore University, GPA 9.31/10. Projects, skills, coursework and contact.",
+          "Résumé of Abhishek Rai A. B.E. in Artificial Intelligence & Machine Learning at Mysore University, GPA 9.31/10. Projects, skills, coursework and contact details.",
       },
-      { property: "og:title", content: "Résumé — Abhishek Rai A · Aspiring ML Engineer" },
+      { property: "og:title", content: "Résumé | Abhishek Rai A · Aspiring ML Engineer" },
       {
         property: "og:description",
         content:
@@ -91,19 +91,19 @@ function ResumePage() {
         <Block title="Profile">
           <p className="text-muted-foreground leading-relaxed">
              B.E. student in Artificial Intelligence &amp; Machine Learning entering the fifth semester with a 9.31/10 GPA.
-             Recently completed a rigorous 4-week (~120 hour) Core AI &amp; ML internship at Bluemind Solutions, where he
+             Recently finished a 4-week (~120 hour) Core AI &amp; ML internship at Bluemind Solutions, where he
              shipped a Customer Churn Intelligence System with LightGBM and Streamlit.
           </p>
         </Block>
 
         <Block title="Education">
           <Row
-            left="B.E. — Artificial Intelligence & Machine Learning"
-            right="2024 — 2028"
+            left="B.E. in Artificial Intelligence & Machine Learning"
+            right="2024 to 2028"
              sub="Mysore University School of Engineering · GPA 9.31 / 10 · Entering V Semester"
           />
           <Row
-            left="Certification — AI & Data Science"
+            left="Certification in AI & Data Science"
             right="Ongoing"
             sub="DRISHTI CPS Foundation, IIT Indore · ML fundamentals, workflows, applied AI"
           />

@@ -56,7 +56,7 @@ const CLIPS: Clip[] = [
     title: "Infinity Castle",
     series: "Demon Slayer",
     kanji: "無限城",
-    line: "Total concentration breathing — the exact energy a long debugging night needs.",
+    line: "Total concentration breathing. It's the exact energy a long debugging night needs.",
     video: dsFull.url,
     loop: dsLoop.url,
     poster: dsPoster.url,
@@ -230,7 +230,7 @@ export function TechniqueVault() {
               ))}
             </div>
             <p className="pt-4 font-mono text-[11px] text-muted-foreground">
-              Fan edits sourced from my own watchlist — hover to preview, click to play.
+              Fan edits from my own watchlist. Hover to preview, click to play.
             </p>
           </motion.div>
         )}

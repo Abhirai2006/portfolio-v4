@@ -9,22 +9,22 @@ const TEMPLATES: Record<MailIntent, { label: string; subject: string; body: stri
   hire: {
     label: "Full-time role",
     subject: "Hi Abhishek, I'd like to chat about a role",
-    body: "Hey Abhishek,\n\nI saw your portfolio and I'm hiring for a role I think fits you.\n\nRole:\nTeam / company:\nLocation (remote or on-site):\nWhen we'd want you to start:\n\n—",
+    body: "Hey Abhishek,\n\nI saw your portfolio and I'm hiring for a role I think fits you.\n\nRole:\nTeam / company:\nLocation (remote or on-site):\nWhen we'd want you to start:\n\nThanks,",
   },
   internship: {
     label: "Internship",
     subject: "Internship opportunity for you, Abhishek",
-    body: "Hey Abhishek,\n\nWe have an internship open and your ML work stood out.\n\nTeam:\nDuration:\nStipend:\nStart date:\n\n—",
+    body: "Hey Abhishek,\n\nWe have an internship open and your ML work stood out.\n\nTeam:\nDuration:\nStipend:\nStart date:\n\nThanks,",
   },
   freelance: {
     label: "Freelance / project",
-    subject: "Freelance project — quick question",
-    body: "Hey Abhishek,\n\nI've got a project I'd like your help on.\n\nWhat it is:\nRough scope:\nTimeline:\nBudget range:\n\n—",
+    subject: "Freelance project, quick question",
+    body: "Hey Abhishek,\n\nI've got a project I'd like your help on.\n\nWhat it is:\nRough scope:\nTimeline:\nBudget range:\n\nThanks,",
   },
   hello: {
     label: "Just saying hi",
     subject: "Hey Abhishek 👋",
-    body: "Hey Abhishek,\n\nSaw your portfolio and wanted to say hi.\n\nWhat caught my eye:\n\n—",
+    body: "Hey Abhishek,\n\nSaw your portfolio and wanted to say hi.\n\nWhat caught my eye:\n\nCheers,",
   },
 };
 
@@ -39,5 +39,5 @@ export const MAIL_INTENTS = (Object.keys(TEMPLATES) as MailIntent[]).map((k) => 
   href: mailto(k),
 }));
 
-/** Pre-filled mailto: link — opens the visitor's own mail client (RFC 6068). */
+/** Pre-filled mailto: link. Opens the visitor's own mail client (RFC 6068). */
 export const hireMailto = mailto("hire");

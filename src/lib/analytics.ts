@@ -15,7 +15,7 @@ const sessionId = (() => {
 
 const seen = new Set<string>();
 
-/** Fire-and-forget, anonymous. No PII — just which parts of the site get reached. */
+/** Fire-and-forget, anonymous. No personal data, just which parts of the site get reached. */
 export function track(name: EventName, label: string) {
   if (typeof window === "undefined") return;
   const key = `${name}:${label}`;

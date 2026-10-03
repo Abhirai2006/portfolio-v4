@@ -13,7 +13,7 @@ export const Route = createFileRoute("/projects/$slug")({
   },
   head: ({ params, loaderData }) => {
     const p = loaderData?.project;
-    const title = p ? `${p.title} — Case study · Abhishek Rai A` : "Case study · Abhishek Rai A";
+    const title = p ? `${p.title}: Case study · Abhishek Rai A` : "Case study · Abhishek Rai A";
     const desc = p?.caseStudy.summary ?? "Project case study by Abhishek Rai A.";
     const url = `${SITE}/projects/${params.slug}`;
     const img = p?.images?.[0] ? `${SITE}${p.images[0]}` : undefined;
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/projects/$slug")({
               children: JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "Article",
-                headline: `${p.title} — Case study`,
+                headline: `${p.title}: Case study`,
                 description: p.caseStudy.summary,
                 author: { "@type": "Person", name: "Abhishek Rai A" },
                 url,

@@ -31,13 +31,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Portfolio of Abhishek Rai A — B.E. AI & ML student and Bluemind Solutions intern. Explore his Customer Churn Intelligence capstone, projects, and live GitHub activity.",
+          "Portfolio of Abhishek Rai A, a B.E. AI & ML student and Bluemind Solutions intern. See his Customer Churn Intelligence capstone, his other projects and live GitHub activity.",
       },
       { property: "og:title", content: "Abhishek Rai A - ML Engineer · Live Projects" },
       {
         property: "og:description",
         content:
-          "Portfolio of Abhishek Rai A — B.E. AI & ML student and Bluemind Solutions intern. Explore his Customer Churn Intelligence capstone, projects, and live GitHub activity.",
+          "Portfolio of Abhishek Rai A, a B.E. AI & ML student and Bluemind Solutions intern. See his Customer Churn Intelligence capstone, his other projects and live GitHub activity.",
       },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -221,7 +221,7 @@ function VisitorKpi({ value }: { value: number | null }) {
   return (
     <div aria-live="polite">
       <div className="text-3xl font-display gold-text tabular-nums">
-        {value === null ? "—" : value.toLocaleString()}
+        {value === null ? "..." : value.toLocaleString()}
       </div>
       <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mt-1">
         total visitors
@@ -260,7 +260,7 @@ function Origin() {
         <ChapterHeader n="01" title="Origin Story" />
         <div className="mt-10 grid md:grid-cols-[1fr_1.4fr] gap-12">
           <blockquote className="relative border-l-2 border-primary pl-6 font-display text-2xl leading-snug">
-            "Building cool stuff — <span className="gold-text">one algorithm at a time.</span>"
+            "Building cool stuff, <span className="gold-text">one algorithm at a time.</span>"
           </blockquote>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
@@ -272,8 +272,8 @@ function Origin() {
             </p>
             <p>
                I find patterns in mathematics and elegance in algorithms. I speak Tulu (mother tongue), Kannada, Hindi
-               and English. I recently completed a rigorous 4-week, roughly 120-hour Core AI &amp; ML internship at
-               Bluemind Solutions Pvt. Ltd. (Aug–Sep 2026), where my capstone was a leak-free Customer Churn
+               and English. I recently finished a 4-week, roughly 120-hour Core AI &amp; ML internship at
+               Bluemind Solutions Pvt. Ltd. (Aug to Sep 2026). My capstone there was a leak-free Customer Churn
                Intelligence System on IBM Telco data.
             </p>
              <p className="text-sm">
@@ -318,8 +318,8 @@ function NowBuilding() {
     <section className="mx-auto max-w-6xl px-6 pb-28">
       <div className="grid md:grid-cols-3 gap-4">
         <StatusCard tag="Recently shipped" title="Churn Intelligence" body="Bluemind Solutions capstone: leak-free tabular ML, business threshold tuning, and a live Streamlit dashboard on IBM Telco data." />
-        <StatusCard tag="Learning" title="AI & Data Science" body="Ongoing certification via DRISHTI CPS (IIT Indore) — ML fundamentals, workflows, applied AI." />
-        <StatusCard tag="Building foundations" title="PyTorch · FastAPI" body="Learning the next layer of ML engineering deliberately — strengthening model serving and deep-learning fundamentals without overclaiming production experience." />
+        <StatusCard tag="Learning" title="AI & Data Science" body="Ongoing certification through DRISHTI CPS (IIT Indore): ML fundamentals, workflows and applied AI." />
+        <StatusCard tag="Building foundations" title="PyTorch · FastAPI" body="Learning the next layer of ML engineering on purpose: model serving and deep learning fundamentals. I'm not claiming production experience yet." />
       </div>
     </section>
   );
@@ -347,8 +347,8 @@ function Arsenal() {
     <section id="arsenal" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="02" title="Power Levels" />
       <p className="mt-6 max-w-2xl text-muted-foreground">
-        Core weapons in the arsenal — AI/ML + math foundations. I vibe-code web (HTML/CSS/JS/React) with AI as
-        copilot. Focus stays on the algorithms.
+        The tools I lean on most are AI/ML and the math behind it. For web stuff (HTML/CSS/JS/React) I vibe-code with
+        AI as a copilot, and my real focus stays on the algorithms.
       </p>
       <div className="mt-10 space-y-4">
         {tiers.map((t) => (
@@ -386,7 +386,7 @@ function GithubSection() {
     <section id="github" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="03" title="Live Code Activity" />
       <p className="mt-6 max-w-2xl text-muted-foreground">
-        Not hardcoded — pulled live from the GitHub API every 10 minutes. What you see is what I actually shipped.
+        Not hardcoded. This is pulled live from the GitHub API every 10 minutes, so it's what I actually shipped.
       </p>
       <div className="mt-10">
         <GithubLive />
@@ -404,7 +404,7 @@ function Projects() {
     <section id="projects" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="04" title="The Arsenal" />
       <p className="mt-6 max-w-2xl text-muted-foreground">
-        Click any card for screenshots and the live site — or read the full case study for the problem,
+        Click any card for screenshots and the live site, or open the full case study for the problem,
         constraints, trade-offs and what actually shipped.
       </p>
       <div
@@ -498,7 +498,7 @@ function AskSection() {
     <section id="ask" className="mx-auto max-w-6xl px-6 py-28">
       <ChapterHeader n="05" title="Ask Abhishek" />
       <p className="mt-6 max-w-2xl text-muted-foreground">
-        Recruiter in a hurry? Skip the scroll — ask the AI trained on my resume and projects. Answers stay grounded
+        In a hurry? Skip the scroll and ask the assistant instead. It only knows my resume and projects. Answers stay grounded
         in my actual background.
       </p>
       <div className="mt-10 max-w-3xl mx-auto">
@@ -523,7 +523,7 @@ function AnimeShelf() {
             <p className="font-mono text-xs uppercase tracking-widest text-primary">Its own page</p>
             <h2 className="mt-4 font-one-piece text-4xl leading-tight text-foreground sm:text-6xl">Abhi's Anime Shelf</h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              The Grand Line was too big for one portfolio section—so it got its own page: a scroll-driven 3D shelf of 60 titles, with mood-based AI picks, random discoveries, and live visitor recommendations.
+              The Grand Line was too big for one portfolio section, so it got its own page: a scroll-driven 3D shelf of 60 titles, mood-based AI picks, random discoveries and live visitor recommendations.
             </p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-2 font-mono text-sm uppercase tracking-widest text-primary">
@@ -629,7 +629,7 @@ function Contact() {
             </>
           ) : (
             <div className="text-muted-foreground pl-2 italic">
-              [ contact locked — click <span className="text-primary">cat contact.sh</span> to decrypt ]
+              [ contact locked: click <span className="text-primary">cat contact.sh</span> to decrypt ]
             </div>
           )}
           <div><span className="text-primary">$</span> ./transmit.sh</div>
@@ -637,7 +637,7 @@ function Contact() {
         </div>
         <div className="space-y-4">
           <p className="text-lg text-muted-foreground">
-            An algorithm to crack, a theorem to prove, or the latest anime arc — drop a line.
+            An algorithm to crack, a theorem to prove, or the latest anime arc. Drop a line.
           </p>
           <div className="flex flex-wrap gap-3">
             <button

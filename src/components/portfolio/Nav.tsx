@@ -21,7 +21,7 @@ export function Nav() {
         <Link to="/" className="flex items-center gap-2 font-display text-sm tracking-widest">
           <span className="inline-block h-2 w-2 rounded-full bg-primary" />
           <span className="gold-text font-semibold">ABHISHEK RAI A</span>
-          <span className="text-muted-foreground hidden sm:inline">— PORTFOLIO / 2026</span>
+          <span className="text-muted-foreground hidden sm:inline">· PORTFOLIO / 2026</span>
         </Link>
         <div className="flex items-center gap-3">
           <Link

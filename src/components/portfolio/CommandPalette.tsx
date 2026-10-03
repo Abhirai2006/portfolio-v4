@@ -52,14 +52,14 @@ export function CommandPalette() {
         },
       ...PROJECTS.map((p) => ({
         id: `case-${p.slug}`,
-        label: `${p.title} — case study`,
+        label: `${p.title} (case study)`,
         group: "Case studies",
         hint: `/projects/${p.slug}`,
         run: () => void navigate({ to: "/projects/$slug", params: { slug: p.slug } }),
       })),
       ...MAIL_INTENTS.map((m) => ({
         id: `mail-${m.intent}`,
-        label: `Email me — ${m.label}`,
+        label: `Email me: ${m.label}`,
         group: "Contact",
         hint: "mailto",
         run: () => {

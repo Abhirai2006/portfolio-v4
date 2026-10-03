@@ -33,7 +33,7 @@ function NotFoundComponent() {
           But what you throw away you'll never get back."
         </p>
         <p className="mt-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-          — Roronoa Zoro, One Piece
+          Roronoa Zoro, One Piece
         </p>
         <p className="mt-6 text-sm text-muted-foreground">
           This page wandered off the Grand Line. Let's get you back on course.
@@ -99,14 +99,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-site-verification", content: "P2DRuJ18Vnv9ODoBdeu9g8N8WJNXvirCetwE0pxIK2Y" },
       { title: "Abhishek Rai A - ML Engineer · Live Projects" },
-      { name: "description", content: "Portfolio of Abhishek Rai A — B.E. AI & ML student, Bluemind Solutions intern, and builder of a Customer Churn Intelligence System." },
+      { name: "description", content: "Portfolio of Abhishek Rai A, a B.E. AI & ML student and Bluemind Solutions intern who built a Customer Churn Intelligence System." },
       { name: "author", content: "Abhishek Rai A" },
       { property: "og:title", content: "Abhishek Rai A - ML Engineer · Live Projects" },
-      { property: "og:description", content: "Portfolio of Abhishek Rai A — B.E. AI & ML student, Bluemind Solutions intern, and builder of a Customer Churn Intelligence System." },
+      { property: "og:description", content: "Portfolio of Abhishek Rai A, a B.E. AI & ML student and Bluemind Solutions intern who built a Customer Churn Intelligence System." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Abhishek Rai A - ML Engineer · Live Projects" },
-      { name: "twitter:description", content: "Portfolio of Abhishek Rai A — B.E. AI & ML student, Bluemind Solutions intern, and builder of a Customer Churn Intelligence System." },
+      { name: "twitter:description", content: "Portfolio of Abhishek Rai A, a B.E. AI & ML student and Bluemind Solutions intern who built a Customer Churn Intelligence System." },
     ],
     links: [
       {

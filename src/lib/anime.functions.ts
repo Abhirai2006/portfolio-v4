@@ -114,18 +114,13 @@ export const listRecommendations = createServerFn({ method: "GET" }).handler(
 
     return rows
       .map((r) => ({ ...r, votes: tally.get(r.id) ?? 0 }))
-      .sort(
-        (a, b) =>
-          b.votes - a.votes || (a.created_at < b.created_at ? 1 : -1),
-      );
+      .sort((a, b) => b.votes - a.votes || (a.created_at < b.created_at ? 1 : -1));
   },
 );
 
 export const voteRecommendation = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) =>
-    z
-      .object({ id: z.string().uuid(), voterKey: z.string().min(8).max(64) })
-      .parse(input),
+    z.object({ id: z.string().uuid(), voterKey: z.string().min(8).max(64) }).parse(input),
   )
   .handler(async ({ data }) => {
     const { error } = await publicDb()
@@ -201,30 +196,25 @@ export const moodSearch = createServerFn({ method: "POST" })
       "You are the curator of a personal anime shelf. Given a mood, pick 3-7 titles from the shelf that fit it. Only use ids from the list. Write one short, warm sentence (max 18 words) explaining the pick as if handing someone a case off a shelf.";
 
     const call = (model: string) =>
-      fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: system }] },
-            contents: [
-              { role: "user", parts: [{ text: `Mood: ${data.mood}\n\nShelf:\n${menu}` }] },
-            ],
-            generationConfig: {
-              responseMimeType: "application/json",
-              responseSchema: {
-                type: "OBJECT",
-                required: ["ids", "line"],
-                properties: {
-                  ids: { type: "ARRAY", items: { type: "STRING" } },
-                  line: { type: "STRING" },
-                },
+      fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: system }] },
+          contents: [{ role: "user", parts: [{ text: `Mood: ${data.mood}\n\nShelf:\n${menu}` }] }],
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: "OBJECT",
+              required: ["ids", "line"],
+              properties: {
+                ids: { type: "ARRAY", items: { type: "STRING" } },
+                line: { type: "STRING" },
               },
             },
-          }),
-        },
-      );
+          },
+        }),
+      });
 
     // Gemini sometimes answers 500/503 ("model overloaded") for a moment:
     // retry once, then fall back to a lighter model.
@@ -238,7 +228,8 @@ export const moodSearch = createServerFn({ method: "POST" })
     }
     if (res.status >= 500 && fallback !== model) res = await call(fallback);
 
-    if (res.status === 429) return { ids: [], line: "", error: "Too many requests — try again in a moment." };
+    if (res.status === 429)
+      return { ids: [], line: "", error: "Too many requests. Try again in a moment." };
     if (!res.ok) {
       console.error("AI error", res.status, await res.text());
       return { ids: [], line: "", error: "The curator could not answer just now." };
@@ -252,7 +243,8 @@ export const moodSearch = createServerFn({ method: "POST" })
       const parsed = JSON.parse(text || "{}");
       const valid = new Set(shelf.map((a) => a.id));
       const ids = (parsed.ids ?? []).filter((id: string) => valid.has(id));
-      if (!ids.length) return { ids: [], line: "", error: "Nothing on the shelf matches that mood." };
+      if (!ids.length)
+        return { ids: [], line: "", error: "Nothing on the shelf matches that mood." };
       return { ids, line: String(parsed.line ?? "") };
     } catch {
       return { ids: [], line: "", error: "The curator mumbled something unreadable." };

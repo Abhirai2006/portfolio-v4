@@ -19,12 +19,12 @@ type Review = {
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "Reviews — Abhishek Rai A" },
+      { title: "Reviews | Abhishek Rai A" },
       {
         name: "description",
         content: "Read feedback on Abhishek Rai A's work and leave an anonymous review without signing in.",
       },
-      { property: "og:title", content: "Reviews — Abhishek Rai A" },
+      { property: "og:title", content: "Reviews | Abhishek Rai A" },
       {
         property: "og:description",
         content: "Read feedback and leave an anonymous review for Abhishek Rai A's portfolio.",

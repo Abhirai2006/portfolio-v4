@@ -34,8 +34,7 @@ export const PROJECTS: ProjectEntry[] = [
     title: "Customer Churn Intelligence System",
     tag: "Capstone · Bluemind Solutions AI/ML Internship",
     year: "2026",
-    body:
-      "End-to-end tabular ML system on IBM Telco Customer Churn: leak-free preprocessing, model comparison, stratified 5-fold CV, business-driven threshold selection, error analysis, and a Streamlit dashboard for single and batch scoring.",
+    body: "End-to-end tabular ML system on IBM Telco Customer Churn: leak-free preprocessing, model comparison, stratified 5-fold CV, business-driven threshold selection, error analysis, and a Streamlit dashboard for single and batch scoring.",
     tags: ["Python", "Scikit-learn", "XGBoost", "LightGBM", "Streamlit", "Pandas"],
     metrics: [
       { value: "0.849", label: "CV ROC-AUC" },
@@ -75,7 +74,7 @@ export const PROJECTS: ProjectEntry[] = [
       outcome: [
         "LightGBM reached 0.849 CV ROC-AUC and 82% recall on churners.",
         "Estimated ~$179k in annual recoverable revenue from the business-oriented scoring setup.",
-        "Completed as a rigorous 4-week (~120 hour) Core AI & ML Internship capstone at Bluemind Solutions Pvt. Ltd.",
+        "Completed as the capstone of a 4-week (~120 hour) Core AI & ML internship at Bluemind Solutions Pvt. Ltd.",
       ],
       stack: ["Python", "NumPy", "Pandas", "Scikit-learn", "XGBoost", "LightGBM", "Streamlit"],
     },
@@ -85,8 +84,7 @@ export const PROJECTS: ProjectEntry[] = [
     title: "MUSE Students Voice",
     tag: "Full-stack · SSR · Auth",
     year: "2026",
-    body:
-      "USN-verified anonymous grievance platform. Peer-voted complaints auto-escalate into formal PDF letters. Supabase RLS + security-definer RPCs so identities stay server-side.",
+    body: "USN-verified anonymous grievance platform. Peer-voted complaints auto-escalate into formal PDF letters. Supabase RLS + security-definer RPCs so identities stay server-side.",
     tags: ["TanStack Start", "Supabase RLS", "Cloudflare"],
     images: [muse1.url, muse2.url, muse3.url],
     live: "https://muse-studentsvoice.lovable.app/",
@@ -103,19 +101,19 @@ export const PROJECTS: ProjectEntry[] = [
         "Students at MUSE had no safe way to raise campus issues. Named complaints invited retaliation; fully anonymous forms invited spam and were ignored by the administration because nobody could vouch that the sender was even a student.",
       constraints: [
         "A complaint must be provably from an enrolled student, without ever showing who wrote it.",
-        "No moderator, no budget — the escalation rule has to be mechanical, not human.",
+        "No moderator and no budget, so the escalation rule has to be mechanical, not human.",
         "Runs on a free edge tier: no long-lived server, no background workers.",
       ],
       built: [
         "USN (roll number) verification against a seeded roster of 1,159 enrolled IDs before an account can post.",
-        "Postgres row-level security plus security-definer RPCs: the author column is never selectable by the client — only the RPC can join it, and it never returns it.",
+        "Postgres row-level security plus security-definer RPCs: the author column is never selectable by the client. Only the RPC can join it, and it never returns it.",
         "Peer voting with a threshold; crossing it flips the complaint to 'escalated' and renders a formal PDF letter addressed to the department.",
         "Server-side rendering on Cloudflare Workers so complaint pages load instantly on campus Wi-Fi.",
       ],
       tradeoffs: [
         {
           choice: "RLS + security-definer RPCs instead of a custom API layer",
-          why: "One place to reason about who can read what. A leaky endpoint can't bypass the database itself — the guarantee lives below the app.",
+          why: "One place to reason about who can read what. A leaky endpoint can't bypass the database itself, so the guarantee lives below the app.",
         },
         {
           choice: "Threshold voting instead of moderators",
@@ -131,7 +129,109 @@ export const PROJECTS: ProjectEntry[] = [
         "Complaints escalate into a printable, formally worded PDF with no manual step.",
         "Taught me that access control is a data-model problem, not a UI problem.",
       ],
-      stack: ["TanStack Start", "React 19", "Supabase (Postgres, RLS)", "Cloudflare Workers", "TypeScript"],
+      stack: [
+        "TanStack Start",
+        "React 19",
+        "Supabase (Postgres, RLS)",
+        "Cloudflare Workers",
+        "TypeScript",
+      ],
+    },
+  },
+  {
+    slug: "arthra",
+    title: "Arthra",
+    tag: "Personal finance for India",
+    year: "2026",
+    body: "A personal finance workspace built around how money actually works in India: INR with integer-paise storage, April to March financial years, GST references, shared Expense Spaces and read-only report links for a CA.",
+    tags: ["TypeScript", "MySQL", "Vitest"],
+    live: "https://arthrafin-7qakibfj.manus.space",
+    repo: "https://github.com/Abhirai2006/arthra",
+    metrics: [
+      { value: "60", label: "automated tests passing" },
+      { value: "3", label: "Expense Space roles" },
+      { value: "Apr to Mar", label: "financial-year reports" },
+    ],
+    caseStudy: {
+      summary:
+        "Arthra is a private expense tracker for Indian users, built around financial years, rupees and sharing money with other people.",
+      problem:
+        "I wanted a money tracker that follows the Indian financial year and rupees from day one, and keeps to plain record-keeping: what came in, what went out, and who I can safely show it to.",
+      constraints: [
+        "Money has to be exact, so no floating point rupees.",
+        "Shared spending (a trip, a household) needs real access control, not just a hidden button.",
+        "Sharing a report with a CA should not mean sharing the whole account.",
+      ],
+      built: [
+        "Income and expense tracking with categories, accounts, notes, search and filters.",
+        "Review-first import of CSV and Excel statements, with column mapping and duplicate checks before anything is saved.",
+        "Monthly category budgets with spending trends and unusual-spend hints.",
+        "Expense Spaces with Owner, Editor and Viewer roles, enforced on the server.",
+        "April to March financial-year reports, CSV export and time-limited read-only links that can be revoked.",
+        "A read-only demo with fictional data so anyone can look around without signing up.",
+      ],
+      tradeoffs: [
+        {
+          choice: "Integer paise instead of decimal rupees",
+          why: "Adding floats drifts. Storing whole paise keeps totals exact.",
+        },
+        {
+          choice: "Calculations stay deterministic, AI is optional",
+          why: "Totals and budgets come from plain code. AI summaries only run when you ask for them and never edit transactions.",
+        },
+      ],
+      outcome: [
+        "60 automated tests across 26 files covering financial-year boundaries, authorization, budgets, imports and share-link revocation.",
+        "A public demo that works without an account.",
+      ],
+      stack: ["TypeScript", "MySQL", "Vitest"],
+    },
+  },
+  {
+    slug: "ittige",
+    title: "Ittige",
+    tag: "Management & Entrepreneurship · Team project",
+    year: "2026",
+    body: "A scroll-driven site for our social enterprise plan in Mysuru: low-value plastic packaging melted with sand into pavers and blocks. The whole block-making animation is drawn in code, and the cost numbers are shown honestly, including where it loses to clay.",
+    tags: ["JavaScript", "Three.js", "WebGL"],
+    live: "https://ittige.vercel.app/",
+    repo: "https://github.com/Abhirai2006/ittige",
+    metrics: [
+      { value: "7", label: "scroll stages in the animation" },
+      { value: "Rs 10 to 24", label: "cost per brick, three cases" },
+      { value: "~550 t", label: "solid waste a day in Mysuru" },
+    ],
+    caseStudy: {
+      summary:
+        "Ittige is Kannada for brick. It's the website for our 21AI51 business plan, made to explain the idea in a minute of scrolling.",
+      problem:
+        "A plan that turns plastic waste into building blocks sounds good on paper, but a report is hard to skim. We wanted people to see how a block gets made and to trust the numbers behind it.",
+      constraints: [
+        "Every figure on the page has to match the report or be labelled as an assumption.",
+        "It had to run on phones and on a classroom projector.",
+        "No video files, so the page stays light.",
+      ],
+      built: [
+        "A seven-stage 3D animation (drop, shred, sand, furnace, press, cool, block) driven by scroll position, so it plays forwards and backwards.",
+        "The real plastic mix named on screen, with the types we screen out.",
+        "A cost section with low, base and high cases against a clay brick, including what would have to change for Ittige to win.",
+        "Team links that only show when you hover or click a name.",
+      ],
+      tradeoffs: [
+        {
+          choice: "Show where we lose to clay",
+          why: "The plan is easier to believe when it admits where it loses.",
+        },
+        {
+          choice: "Equations instead of a physics simulation",
+          why: "Every scroll position can be computed directly, so the animation is smooth and looks the same on every visit.",
+        },
+      ],
+      outcome: [
+        "A live site that tells the plan in four parts: the waste problem, how a block is made, the cost numbers and the team.",
+        "A static export, so hosting is just plain files.",
+      ],
+      stack: ["JavaScript", "Three.js", "WebGL", "Vercel"],
     },
   },
   {
@@ -139,8 +239,7 @@ export const PROJECTS: ProjectEntry[] = [
     title: "O(patience)",
     tag: "Algorithms · React · TypeScript",
     year: "2025",
-    body:
-      "Deep sorting playground — 5 algorithms, pointer flags, pitch-based sound mode, step-by-step export, Race Mode with live leaderboard, Quiz Mode and an embeddable widget.",
+    body: "A deep sorting playground with 5 algorithms, pointer flags, pitch-based sound mode, step-by-step export, Race Mode with live leaderboard, Quiz Mode and an embeddable widget.",
     tags: ["TypeScript", "React", "Motion"],
     images: [sort1.url, sort2.url, sort3.url],
     live: "https://sort-visually-abhirai2006.lovable.app/",
@@ -156,14 +255,14 @@ export const PROJECTS: ProjectEntry[] = [
       problem:
         "Every sorting visualiser online animates bars and stops there. You watch it, you nod, you learn nothing about comparison counts, pointer movement or why one algorithm collapses on nearly-sorted input.",
       constraints: [
-        "Animation must stay smooth while the array grows — no dropped frames at 200 elements.",
+        "Animation must stay smooth while the array grows, with no dropped frames at 200 elements.",
         "The visualisation has to be inspectable: pause, step, and read the exact state.",
         "It should be usable inside someone else's lecture slide or blog.",
       ],
       built: [
         "A generator-based engine: each algorithm yields discrete steps, so playback, stepping and export all read from one source of truth.",
         "Pointer flags (i, j, pivot, low/high) rendered on the bars, plus live comparison and swap counters.",
-        "Sound mode mapping array values to pitch — you hear a nearly-sorted array as a rising scale.",
+        "Sound mode mapping array values to pitch, so a nearly sorted array sounds like a rising scale.",
         "Race Mode running algorithms side by side with a live leaderboard, and Quiz Mode that pauses and asks what happens next.",
         "An /embed route that renders just the canvas for iframing.",
       ],
@@ -194,8 +293,7 @@ export const PROJECTS: ProjectEntry[] = [
     title: "Binary Search Visualizer",
     tag: "Vanilla JS · Glassmorphism",
     year: "2025",
-    body:
-      "High-performance visualizer with real-time low/mid/high tracking and audio feedback per step. Demonstrates O(log n) narrowing visually.",
+    body: "High-performance visualizer with real-time low/mid/high tracking and audio feedback per step. Demonstrates O(log n) narrowing visually.",
     tags: ["JavaScript", "Netlify"],
     images: [bs1.url, bs2.url, bs3.url],
     live: "https://binarysearch-abhirai.netlify.app/",
@@ -210,14 +308,14 @@ export const PROJECTS: ProjectEntry[] = [
       problem:
         "Binary search is the first algorithm where beginners memorise the code without believing the halving. The gap is that nobody ever sees the search window shrink.",
       constraints: [
-        "No build step, no framework — it had to be one HTML file a classmate could open offline.",
+        "No build step and no framework. It had to be one HTML file a classmate could open offline.",
         "Every step must be legible: which index is low, which is mid, which is high.",
       ],
       built: [
         "Real-time low / mid / high markers that slide as the window collapses, with discarded halves visibly dimming.",
         "A step counter next to the theoretical log₂n bound, so the two numbers meet.",
         "Per-step audio feedback so the halving is audible as well as visible.",
-        "A glass UI built with plain CSS — backdrop filters, no component library.",
+        "A glass-style UI built with plain CSS and backdrop filters, no component library.",
       ],
       tradeoffs: [
         {
@@ -229,11 +327,46 @@ export const PROJECTS: ProjectEntry[] = [
           why: "Keeps the payload tiny and the file self-contained.",
         },
       ],
-      outcome: [
-        "Loads instantly, works offline, under 50KB total.",
-        "Used it to explain binary search to juniors — the halving lands in about ten seconds.",
-      ],
+      outcome: ["Loads instantly, works offline, under 50KB total."],
       stack: ["JavaScript (ES modules)", "CSS", "Netlify"],
+    },
+  },
+  {
+    slug: "git-github-viva-prep",
+    title: "Git & GitHub Viva Prep",
+    tag: "Lab viva · Study tool",
+    year: "2026",
+    body: "A study site for our Project Management with Git lab viva: flashcards, a quiz, a debugging drill and a searchable command cheat sheet covering all 12 experiments. No backend, and progress is saved only in your own browser.",
+    tags: ["TypeScript", "Three.js", "Netlify"],
+    live: "https://git-github-by-abhirai2006.netlify.app/",
+    repo: "https://github.com/Abhirai2006/git-and-GitHub",
+    metrics: [
+      { value: "49", label: "flashcards" },
+      { value: "20", label: "quiz questions" },
+      { value: "6", label: "real Git errors to debug" },
+    ],
+    caseStudy: {
+      summary: "I built this site to prepare for the Git and GitHub lab viva.",
+      problem:
+        "Viva prep for a lab course is scattered across a manual, notes and half-remembered commands. I wanted one place to practise the questions and the commands together.",
+      constraints: [
+        "It had to cover all five lab sessions and all twelve experiments.",
+        "No sign-up and no tracking, because it's just for revision.",
+      ],
+      built: [
+        "49 flashcards with a flip animation, session filters and a star-to-review option.",
+        "A 20-question quiz by session or all together, with an explanation after each answer.",
+        "A debug drill with 6 real Git error messages, where you pick the actual fix.",
+        "A cheat sheet of every command from the 12 experiments, searchable, with one-click copy.",
+      ],
+      tradeoffs: [
+        {
+          choice: "Everything in the browser, nothing on a server",
+          why: "Starred cards and quiz scores sit in local storage. It's simpler, free to host and private by default.",
+        },
+      ],
+      outcome: ["A static site that deploys on Netlify with no backend to look after."],
+      stack: ["TypeScript", "Three.js", "Netlify"],
     },
   },
   {
@@ -241,8 +374,7 @@ export const PROJECTS: ProjectEntry[] = [
     title: "C++ Console Mini-Suite",
     tag: "OOP · Terminal",
     year: "2025",
-    body:
-      "Tic-Tac-Toe (board logic, win/tie), Mini Banking System (validated deposit/withdraw), Rock-Paper-Scissors — reinforcing OOP, arrays and modular design.",
+    body: "Tic-Tac-Toe (board logic, win/tie), Mini Banking System (validated deposit/withdraw), Rock-Paper-Scissors. Built to practise OOP, arrays and modular design.",
     tags: ["C++", "OOP"],
     images: [],
     repo: "https://github.com/Abhirai2006",
@@ -252,10 +384,10 @@ export const PROJECTS: ProjectEntry[] = [
       { value: "C++17", label: "standard, no libraries" },
     ],
     snippet: {
-      title: "banking.cpp — sample session",
+      title: "banking.cpp (sample session)",
       lines: [
         "$ ./banking",
-        "── Mini Banking System ─────────────",
+        "-- Mini Banking System --------------",
         "1) Deposit   2) Withdraw   3) Balance   4) Exit",
         "> 1",
         "Amount: 2500",
@@ -270,23 +402,24 @@ export const PROJECTS: ProjectEntry[] = [
       ],
     },
     caseStudy: {
-      summary: "Three console programs written to make OOP stop being vocabulary and start being a tool.",
+      summary:
+        "Three console programs written to make OOP stop being vocabulary and start being a tool.",
       problem:
-        "Classroom C++ is syntax drills. I wanted programs where a bad design decision actually hurts — where state, validation and control flow have to be arranged properly or the thing breaks.",
+        "Classroom C++ is syntax drills. I wanted programs where a bad design decision actually hurts, where state, validation and control flow have to be arranged properly or the thing breaks.",
       constraints: [
-        "Standard library only — no external dependencies, must compile with a plain g++ invocation.",
+        "Standard library only, no external dependencies, and it has to compile with a plain g++ command.",
         "Every user input is hostile until validated.",
       ],
       built: [
         "Tic-Tac-Toe: board represented as a flat array, win/tie detection via line masks rather than nested conditionals.",
-        "Mini Banking System: an Account class owning its invariants — balance can never go negative, and the check lives inside the class, not the menu loop.",
+        "Mini Banking System: an Account class that owns its own rules. The balance can never go negative, and that check lives inside the class, not in the menu loop.",
         "Rock-Paper-Scissors with seeded RNG and a running score.",
         "A shared input helper that re-prompts on non-numeric or out-of-range entry instead of silently accepting garbage.",
       ],
       tradeoffs: [
         {
           choice: "Invariants inside the class, not the menu",
-          why: "The first version validated in the UI loop. Adding a second entry point instantly duplicated the rule — the classic reason encapsulation exists.",
+          why: "The first version validated in the UI loop. Adding a second entry point instantly duplicated the rule, which is exactly why encapsulation exists.",
         },
         {
           choice: "Line masks over nested if-chains for win detection",
@@ -294,8 +427,7 @@ export const PROJECTS: ProjectEntry[] = [
         },
       ],
       outcome: [
-        "Every invalid input path handled — the programs cannot be crashed from the keyboard.",
-        "First time I refactored my own code because the design was wrong, not because it failed.",
+        "Every invalid input path is handled, so the programs can't be crashed from the keyboard.",
       ],
       stack: ["C++17", "STL", "g++"],
     },

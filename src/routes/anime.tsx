@@ -22,7 +22,7 @@ import { markVoted, votedIds, voterKey } from "@/lib/voter";
 
 import { SITE } from "@/lib/site";
 const OG_IMAGE = `${SITE}/anime-og-cover.jpg`;
-const TITLE = "Abhi's Anime Shelf — 3,600+ Episodes Watched";
+const TITLE = "Abhi's Anime Shelf | 3,600+ Episodes Watched";
 const DESC =
   "A 3D shelf of every anime Abhi has watched: 3,600+ episodes as cases you can pull off the rack, a mood curator, and an open slot for your recommendation.";
 
@@ -212,7 +212,7 @@ function ShelfPage() {
 
       {/* ---- hero ---- */}
       <section className="mx-auto max-w-7xl px-6 pb-10 pt-32 sm:px-10 sm:pt-40">
-        <p className="font-hand text-2xl text-accent">not a list —</p>
+        <p className="font-hand text-2xl text-accent">not a list.</p>
         <h1 className="mt-1 font-bebas text-[clamp(3.2rem,11vw,9rem)] leading-[0.82] tracking-wide text-foreground">
           A SHELF OF
           <br />
@@ -240,7 +240,7 @@ function ShelfPage() {
             <input
               value={mood}
               onChange={(e) => setMood(e.target.value)}
-              placeholder="Tell me a mood — 'something that will wreck me', 'dumb fun after a bad day'…"
+              placeholder="Tell me a mood: 'something that will wreck me', 'dumb fun after a bad day'…"
               className="w-full rounded-md border border-border bg-input px-4 py-3 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-primary"
               aria-label="Describe a mood"
             />
@@ -335,8 +335,8 @@ function ShelfPage() {
               </h2>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
                 There&apos;s always room for one more case. Search any anime ever made, leave your
-                name and a line about why — it stays on the shelf until I watch it. Back the ones
-                you want me to watch first; the most wanted rise to the front.
+                name and a line about why. It stays on the shelf until I watch it. Back the ones you
+                want me to watch first; the most wanted rise to the front.
               </p>
             </div>
             <button
@@ -371,7 +371,7 @@ function ShelfPage() {
                   </div>
                   <h3 className="mt-3 truncate text-sm font-semibold">{r.title}</h3>
                   <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                    {r.year ?? "—"}
+                    {r.year ?? "?"}
                     {r.episodes ? ` · ${r.episodes} ep` : ""}
                   </p>
                   {r.note && (
@@ -379,7 +379,7 @@ function ShelfPage() {
                       &ldquo;{r.note}&rdquo;
                     </p>
                   )}
-                  <p className="mt-2 font-hand text-base text-accent">— {r.recommender}</p>
+                  <p className="mt-2 font-hand text-base text-accent">by {r.recommender}</p>
                   <button
                     type="button"
                     onClick={() => vote(r.id)}
@@ -410,9 +410,7 @@ function ShelfPage() {
         <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           {nf.format(totalEpisodes)} episodes · {nf.format(span.hours)} hours · still going
         </p>
-        <Link to="/"
-          className="mt-3 inline-block font-hand text-xl text-primary hover:underline"
-        >
+        <Link to="/" className="mt-3 inline-block font-hand text-xl text-primary hover:underline">
           back to the portfolio
         </Link>
       </footer>
@@ -443,15 +441,7 @@ function Stat({ k, v, sub }: { k: string; v: string; sub: string }) {
   );
 }
 
-function Chip({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
+function Chip({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
