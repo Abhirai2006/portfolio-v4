@@ -81,7 +81,7 @@ export function CaseDetail({ anime, collectionEpisodes, onClose, onPrev, onNext 
             </div>
             <div className="flex justify-between">
               <span>Year</span>
-              <span className="text-foreground/85">{anime.year ?? "—"}</span>
+              <span className="text-foreground/85">{anime.year ?? "?"}</span>
             </div>
             <div className="flex justify-between">
               <span>Format</span>
@@ -104,9 +104,7 @@ export function CaseDetail({ anime, collectionEpisodes, onClose, onPrev, onNext 
           )}
 
           {anime.first && (
-            <p className="mt-3 font-hand text-lg text-accent">
-              the one that started all of this
-            </p>
+            <p className="mt-3 font-hand text-lg text-accent">the one that started all of this</p>
           )}
 
           <div className="mt-5 flex flex-wrap gap-2">
