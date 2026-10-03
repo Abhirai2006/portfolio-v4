@@ -14,7 +14,10 @@ export function HallOfFame({ onOpen }: { onOpen: (id: string) => void }) {
     const sorted = [...shelf].sort((a, b) => b.episodesWatched - a.episodesWatched);
     return TIERS.map((t, i) => {
       const max = i === 0 ? Infinity : TIERS[i - 1]!.min;
-      return { ...t, items: sorted.filter((a) => a.episodesWatched >= t.min && a.episodesWatched < max) };
+      return {
+        ...t,
+        items: sorted.filter((a) => a.episodesWatched >= t.min && a.episodesWatched < max),
+      };
     }).filter((t) => t.items.length > 0);
   }, []);
 
@@ -28,7 +31,7 @@ export function HallOfFame({ onOpen }: { onOpen: (id: string) => void }) {
           HALL OF FAME
         </h2>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-          No made-up scores — the tiers are how much of my life each title actually took. Click any
+          No made-up scores. The tiers are how much of my life each title actually took. Click any
           cover to open its case.
         </p>
 
@@ -66,7 +69,7 @@ function TierCase({ anime, onOpen }: { anime: Anime; onOpen: (id: string) => voi
     <button
       type="button"
       onClick={() => onOpen(anime.id)}
-      title={`${anime.title} — ${nf.format(anime.episodesWatched)} episodes`}
+      title={`${anime.title}, ${nf.format(anime.episodesWatched)} episodes`}
       className="tier-chip group relative block h-[104px] w-[70px] overflow-hidden rounded border border-border bg-secondary transition-transform hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       {anime.cover ? (
