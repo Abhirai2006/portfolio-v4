@@ -4,20 +4,61 @@ import { shelf } from "@/data/anime";
 type Line = { id: string; quote: string; who: string };
 
 const LINES: Line[] = [
-  { id: "naruto", quote: "Hard work is worthless for those that don't believe in themselves.", who: "Naruto Uzumaki" },
-  { id: "one-piece", quote: "When do you think people die? When they are forgotten.", who: "Dr. Hiluluk" },
-  { id: "fullmetal-alchemist-brotherhood", quote: "A lesson without pain is meaningless.", who: "Edward Elric" },
-  { id: "hunter-x-hunter", quote: "You should enjoy the little detours to the fullest.", who: "Gon Freecss" },
+  {
+    id: "naruto",
+    quote: "Hard work is worthless for those that don't believe in themselves.",
+    who: "Naruto Uzumaki",
+  },
+  {
+    id: "one-piece",
+    quote: "When do you think people die? When they are forgotten.",
+    who: "Dr. Hiluluk",
+  },
+  {
+    id: "fullmetal-alchemist-brotherhood",
+    quote: "A lesson without pain is meaningless.",
+    who: "Edward Elric",
+  },
+  {
+    id: "hunter-x-hunter",
+    quote: "You should enjoy the little detours to the fullest.",
+    who: "Gon Freecss",
+  },
   { id: "death-note", quote: "I am justice.", who: "Light Yagami" },
-  { id: "attack-on-titan", quote: "If you win, you live. If you lose, you die. If you don't fight, you can't win.", who: "Eren Yeager" },
-  { id: "your-lie-in-april", quote: "Maybe there's no such thing as an angel.", who: "Kousei Arima" },
-  { id: "jujutsu-kaisen", quote: "Throughout heaven and earth, I alone am the honored one.", who: "Ryomen Sukuna" },
-  { id: "frieren-beyond-journeys-end", quote: "It's only a mere ten years to me. But it's a lifetime to you.", who: "Frieren" },
+  {
+    id: "attack-on-titan",
+    quote: "If you win, you live. If you lose, you die. If you don't fight, you can't win.",
+    who: "Eren Yeager",
+  },
+  {
+    id: "your-lie-in-april",
+    quote: "Maybe there's no such thing as an angel.",
+    who: "Kousei Arima",
+  },
+  {
+    id: "jujutsu-kaisen",
+    quote: "Throughout heaven and earth, I alone am the honored one.",
+    who: "Ryomen Sukuna",
+  },
+  {
+    id: "frieren-beyond-journeys-end",
+    quote: "It's only a mere ten years to me. But it's a lifetime to you.",
+    who: "Frieren",
+  },
   { id: "one-punch-man", quote: "I'm just a guy who's a hero for fun.", who: "Saitama" },
   { id: "demon-slayer-kimetsu-no-yaiba", quote: "Set your heart ablaze.", who: "Kyojuro Rengoku" },
   { id: "haikyu", quote: "Being weak means you have room to grow.", who: "Tobio Kageyama" },
-  { id: "tokyo-ghoul", quote: "It's not the world that's messed up; it's those of us in it.", who: "Ken Kaneki" },
-  { id: "princess-mononoke", quote: "Life is suffering. It is hard. The world is cursed. But still, you find reasons to keep on living.", who: "Ashitaka" },
+  {
+    id: "tokyo-ghoul",
+    quote: "It's not the world that's messed up; it's those of us in it.",
+    who: "Ken Kaneki",
+  },
+  {
+    id: "princess-mononoke",
+    quote:
+      "Life is suffering. It is hard. The world is cursed. But still, you find reasons to keep on living.",
+    who: "Ashitaka",
+  },
 ];
 
 export function QuoteWall({ onOpen }: { onOpen: (id: string) => void }) {
@@ -50,7 +91,7 @@ export function QuoteWall({ onOpen }: { onOpen: (id: string) => void }) {
           &ldquo;{line.quote}&rdquo;
         </blockquote>
         <p className={`quote-fade ${on ? "is-on" : ""} mt-5 font-hand text-xl text-accent`}>
-          — {line.who}
+          {line.who}
         </p>
         <button
           type="button"
