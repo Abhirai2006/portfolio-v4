@@ -70,7 +70,7 @@ export function WatchDNA() {
           <dl className="grid grid-cols-2 gap-x-8 gap-y-8 self-start">
             <Marker
               k="First ever"
-              v={dna.first?.title ?? "—"}
+              v={dna.first?.title ?? "n/a"}
               sub={dna.first ? `${dna.first.year ?? ""} · where it started` : ""}
             />
             <Marker
@@ -80,7 +80,7 @@ export function WatchDNA() {
             />
             <Marker
               k="Home studio"
-              v={dna.studios[0]?.[0] ?? "—"}
+              v={dna.studios[0]?.[0] ?? "n/a"}
               sub={`${nf.format(dna.studios[0]?.[1] ?? 0)} episodes of theirs`}
             />
             <Marker k="Films" v={`${dna.films}`} sub="one-sitting stories" />
@@ -103,9 +103,7 @@ function Marker({ k, v, sub }: { k: string; v: string; sub: string }) {
       <dt className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
         {k}
       </dt>
-      <dd className="mt-2 font-bebas text-2xl leading-tight tracking-wide text-foreground">
-        {v}
-      </dd>
+      <dd className="mt-2 font-bebas text-2xl leading-tight tracking-wide text-foreground">{v}</dd>
       <dd className="mt-1 text-xs text-muted-foreground">{sub}</dd>
     </div>
   );
