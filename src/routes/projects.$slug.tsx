@@ -1,9 +1,35 @@
+import { useState } from "react";
+import { useIsLight } from "@/hooks/use-is-light";
+import { firstShotUrl, pickShot, type Shot } from "@/lib/shots";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getProject, PROJECTS, type ProjectEntry } from "@/lib/projects";
 import { Nav } from "@/components/portfolio/Nav";
 import { hireMailto } from "@/lib/contact";
 
 import { SITE } from "@/lib/site";
+
+function ShotGrid({ title, shots }: { title: string; shots: Shot[] }) {
+  const light = useIsLight();
+  const [failed, setFailed] = useState<string[]>([]);
+  const urls = shots
+    .map((shot) => pickShot(shot, light, failed))
+    .filter((u): u is string => u !== null);
+  if (urls.length === 0) return null;
+  return (
+    <div className="mt-14 grid sm:grid-cols-2 gap-4">
+      {urls.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={`${title} screenshot ${i + 1}`}
+          loading="lazy"
+          onError={() => setFailed((f) => (f.includes(src) ? f : [...f, src]))}
+          className={`rounded-xl border border-border w-full object-cover ${i === 0 ? "sm:col-span-2" : ""}`}
+        />
+      ))}
+    </div>
+  );
+}
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }) => {
@@ -16,7 +42,8 @@ export const Route = createFileRoute("/projects/$slug")({
     const title = p ? `${p.title}: Case study · Abhishek Rai A` : "Case study · Abhishek Rai A";
     const desc = p?.caseStudy.summary ?? "Project case study by Abhishek Rai A.";
     const url = `${SITE}/projects/${params.slug}`;
-    const img = p?.images?.[0] ? `${SITE}${p.images[0]}` : undefined;
+    const first = firstShotUrl(p?.images?.[0]);
+    const img = first ? `${SITE}${first}` : undefined;
     return {
       meta: [
         { title },
@@ -76,7 +103,9 @@ function CaseStudyPage() {
           <div className="text-[10px] font-mono uppercase tracking-widest text-primary">
             {p.tag} · {p.year}
           </div>
-          <h1 className="mt-3 font-display text-4xl sm:text-6xl font-semibold leading-[1.05]">{p.title}</h1>
+          <h1 className="mt-3 font-display text-4xl sm:text-6xl font-semibold leading-[1.05]">
+            {p.title}
+          </h1>
           <p className="mt-5 text-lg text-muted-foreground leading-relaxed">{cs.summary}</p>
 
           <div className="mt-8 grid grid-cols-3 gap-4">
@@ -114,19 +143,7 @@ function CaseStudyPage() {
           </div>
         </header>
 
-        {p.images && p.images.length > 0 && (
-          <div className="mt-14 grid sm:grid-cols-2 gap-4">
-            {p.images.map((src: string, i: number) => (
-              <img
-                key={src}
-                src={src}
-                alt={`${p.title} screenshot ${i + 1}`}
-                loading="lazy"
-                className={`rounded-xl border border-border w-full object-cover ${i === 0 ? "sm:col-span-2" : ""}`}
-              />
-            ))}
-          </div>
-        )}
+        <ShotGrid title={p.title} shots={p.images ?? []} />
 
         {p.snippet && (
           <div className="mt-14 rounded-xl border border-border bg-black/90 p-6 font-mono text-[12px] sm:text-sm overflow-auto">
@@ -182,7 +199,9 @@ function CaseStudyPage() {
         <div className="mt-16 rounded-2xl border border-border bg-card/50 p-6 flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="font-display text-xl">Want the long version?</div>
-            <p className="text-sm text-muted-foreground">Happy to walk through the decisions live.</p>
+            <p className="text-sm text-muted-foreground">
+              Happy to walk through the decisions live.
+            </p>
           </div>
           <a
             href={hireMailto}
@@ -204,7 +223,9 @@ function CaseStudyPage() {
                 params={{ slug: o.slug }}
                 className="rounded-lg border border-border bg-card/40 p-4 hover:border-primary transition-colors"
               >
-                <div className="text-[10px] font-mono uppercase tracking-widest text-primary">{o.tag}</div>
+                <div className="text-[10px] font-mono uppercase tracking-widest text-primary">
+                  {o.tag}
+                </div>
                 <div className="mt-1 font-display text-lg">{o.title}</div>
               </Link>
             ))}
