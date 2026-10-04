@@ -1,3 +1,5 @@
+import { useIsLight } from "@/hooks/use-is-light";
+import { pickShot, type Shot } from "@/lib/shots";
 import { useEffect, useState } from "react";
 
 export type Project = {
@@ -5,7 +7,7 @@ export type Project = {
   tag: string;
   body: string;
   tags: string[];
-  images?: string[];
+  images?: Shot[];
   live?: string;
   repo?: string;
   snippet?: { title: string; lines: string[] };
@@ -15,7 +17,10 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
   const [i, setI] = useState(0);
   // images that fail to load are dropped, so a missing file never leaves a blank slide
   const [broken, setBroken] = useState<string[]>([]);
-  const imgs = (project.images ?? []).filter((src) => !broken.includes(src));
+  const light = useIsLight();
+  const imgs = (project.images ?? [])
+    .map((shot) => pickShot(shot, light, broken))
+    .filter((src): src is string => src !== null);
   const slide = Math.min(i, Math.max(0, imgs.length - 1));
 
   useEffect(() => {
