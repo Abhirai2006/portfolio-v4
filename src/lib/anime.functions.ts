@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/react-start/server";
+import { clientIp, isRateLimited, isSameOrigin } from "@/lib/guard";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { shelf } from "@/data/anime";
@@ -54,11 +56,46 @@ export type CatalogueHit = {
   subtype: string | null;
 };
 
+/** Shared gate for the public server functions: same-origin + per-IP rate limit. */
+function gate(name: string, limit: number, windowMs = 60_000): string | null {
+  const request = getRequest();
+  if (!isSameOrigin(request)) return "Not allowed.";
+  if (isRateLimited(`${name}:${clientIp(request)}`, limit, windowMs)) {
+    return "Too many requests. Try again in a minute.";
+  }
+  return null;
+}
+
+/** Cover art may only come from the catalogue host, never from user-supplied URLs. */
+function safeCover(url: string | null): string | null {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    return u.protocol === "https:" &&
+      (u.hostname === "media.kitsu.app" || u.hostname === "media.kitsu.io")
+      ? u.toString()
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+type KitsuAttributes = {
+  canonicalTitle?: string;
+  titles?: { en?: string; en_jp?: string };
+  posterImage?: { large?: string; original?: string };
+  startDate?: string;
+  synopsis?: string;
+  episodeCount?: number;
+  subtype?: string;
+};
+
 /* ---------------- catalogue search (live, whole-of-anime) ---------------- */
 
 export const searchCatalogue = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => z.object({ q: z.string().min(1).max(80) }).parse(input))
   .handler(async ({ data }): Promise<CatalogueHit[]> => {
+    if (gate("search", 30)) return [];
     const url = new URL("https://kitsu.io/api/edge/anime");
     url.searchParams.set("filter[text]", data.q);
     url.searchParams.set("page[limit]", "12");
@@ -69,7 +106,9 @@ export const searchCatalogue = createServerFn({ method: "POST" })
 
     const res = await fetch(url, { headers: { Accept: "application/vnd.api+json" } });
     if (!res.ok) return [];
-    const json = (await res.json()) as { data?: Array<{ id: string; attributes: any }> };
+    const json = (await res.json()) as {
+      data?: Array<{ id: string; attributes?: KitsuAttributes }>;
+    };
 
     return (json.data ?? []).map((row) => {
       const a = row.attributes ?? {};
@@ -123,6 +162,7 @@ export const voteRecommendation = createServerFn({ method: "POST" })
     z.object({ id: z.string().uuid(), voterKey: z.string().min(8).max(64) }).parse(input),
   )
   .handler(async ({ data }) => {
+    if (gate("vote", 20)) return { ok: false as const, reason: "failed" };
     const { error } = await publicDb()
       .from("recommendation_votes")
       .insert({ recommendation_id: data.id, voter_key: data.voterKey });
@@ -150,6 +190,8 @@ export const addRecommendation = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data }) => {
+    const blocked = gate("add", 5, 10 * 60_000);
+    if (blocked) return { ok: false as const, reason: blocked };
     const db = publicDb();
 
     const { data: dupe } = await db
@@ -165,7 +207,7 @@ export const addRecommendation = createServerFn({ method: "POST" })
       catalogue_id: data.catalogueId,
       title: data.title,
       romaji: data.romaji,
-      cover: data.cover,
+      cover: safeCover(data.cover),
       year: data.year,
       episodes: data.episodes,
       synopsis: data.synopsis,
@@ -182,6 +224,8 @@ export const addRecommendation = createServerFn({ method: "POST" })
 export const moodSearch = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => z.object({ mood: z.string().min(2).max(160) }).parse(input))
   .handler(async ({ data }): Promise<{ ids: string[]; line: string; error?: string }> => {
+    const blocked = gate("mood", 8);
+    if (blocked) return { ids: [], line: "", error: blocked };
     const key = process.env["AI_API_KEY"];
     if (!key) return { ids: [], line: "", error: "Mood search is not configured." };
 

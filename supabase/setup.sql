@@ -257,3 +257,11 @@ CREATE POLICY "Backend can maintain visitor sessions"
 ON public.site_visitor_sessions FOR ALL TO service_role
 USING (true)
 WITH CHECK (true);
+
+-- ==== 20261004000000_lock_down_writes.sql ====
+-- Visitors can read what is published and add new rows. They can never change or remove anything.
+-- These privileges were never granted, so this is a safety net in case a future migration adds them by mistake.
+REVOKE UPDATE, DELETE, TRUNCATE ON public.site_events FROM anon, authenticated;
+REVOKE UPDATE, DELETE, TRUNCATE ON public.reviews FROM anon, authenticated;
+REVOKE UPDATE, DELETE, TRUNCATE ON public.site_visitor_totals FROM anon, authenticated;
+REVOKE ALL ON public.site_visitor_sessions FROM anon, authenticated;

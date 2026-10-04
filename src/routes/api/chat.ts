@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { clientIp, isRateLimited, isSameOrigin } from "@/lib/guard";
 
 // Non-streaming chat endpoint. Uses an OpenAI-compatible endpoint directly to avoid AI SDK
 // version-drift issues; the client posts { messages: [...] } and gets { reply }.
@@ -160,9 +161,15 @@ function geminiToOpenAIStream(upstream: ReadableStream<Uint8Array>): ReadableStr
             const ev = JSON.parse(t.slice(5).trim()) as {
               candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
             };
-            const text = (ev.candidates?.[0]?.content?.parts ?? []).map((x) => x.text ?? "").join("");
+            const text = (ev.candidates?.[0]?.content?.parts ?? [])
+              .map((x) => x.text ?? "")
+              .join("");
             if (text) {
-              controller.enqueue(enc.encode(`data: ${JSON.stringify({ choices: [{ delta: { content: text } }] })}\n\n`));
+              controller.enqueue(
+                enc.encode(
+                  `data: ${JSON.stringify({ choices: [{ delta: { content: text } }] })}\n\n`,
+                ),
+              );
             }
           } catch {
             /* ignore partial/non-JSON lines */
@@ -185,20 +192,45 @@ export const Route = createFileRoute("/api/chat")({
         // Set AI_BASE_URL to use any OpenAI-compatible provider instead (Groq, OpenRouter, ...).
         const baseUrl = process.env.AI_BASE_URL;
         const model = process.env.AI_MODEL ?? "gemini-flash-latest";
-        if (!key) {
-          return Response.json({ error: "AI is not configured yet." }, { status: 500 });
+        if (!isSameOrigin(request)) {
+          return Response.json({ error: "Not allowed." }, { status: 403 });
         }
-        let body: { messages?: Msg[] };
+        if (isRateLimited(`chat:${clientIp(request)}`, 12, 60_000)) {
+          return Response.json(
+            { error: "You are sending messages too fast. Give it a minute." },
+            { status: 429 },
+          );
+        }
+        let body: { messages?: unknown; animeMode?: unknown };
         try {
-          body = (await request.json()) as { messages?: Msg[] };
+          body = (await request.json()) as typeof body;
         } catch {
           return Response.json({ error: "Invalid JSON" }, { status: 400 });
         }
-        const animeMode = Boolean((body as { animeMode?: boolean }).animeMode);
-        const messages = (body.messages ?? []).slice(-12).filter(
-          (m) => (m.role === "user" || m.role === "assistant") && typeof m.content === "string" && m.content.length < 4000,
-        );
-        if (!messages.length) return Response.json({ error: "No messages" }, { status: 400 });
+        const animeMode = body.animeMode === true;
+        const raw = Array.isArray(body.messages) ? body.messages : [];
+        const messages: Msg[] = raw
+          .slice(-12)
+          .filter(
+            (m): m is Msg =>
+              typeof m === "object" &&
+              m !== null &&
+              ((m as Msg).role === "user" || (m as Msg).role === "assistant") &&
+              typeof (m as Msg).content === "string" &&
+              (m as Msg).content.length > 0 &&
+              (m as Msg).content.length < 2000,
+          )
+          .map((m) => ({ role: m.role, content: m.content }));
+        if (!messages.length || messages[messages.length - 1]!.role !== "user") {
+          return Response.json({ error: "No messages" }, { status: 400 });
+        }
+        if (messages.reduce((n, m) => n + m.content.length, 0) > 8000) {
+          return Response.json({ error: "That conversation is too long." }, { status: 413 });
+        }
+
+        if (!key) {
+          return Response.json({ error: "AI is not configured yet." }, { status: 500 });
+        }
 
         const system = BASE_PROMPT + (animeMode ? ANIME_ADDON : "");
         const call = (m: string) =>
@@ -209,6 +241,7 @@ export const Route = createFileRoute("/api/chat")({
                 body: JSON.stringify({
                   model: m,
                   stream: true,
+                  max_tokens: 700,
                   messages: [{ role: "system", content: system }, ...messages],
                 }),
               })
@@ -229,7 +262,8 @@ export const Route = createFileRoute("/api/chat")({
 
         // Gemini often answers 500/503 ("model overloaded") for a moment.
         // Retry once on the main model, then fall back to a lighter one.
-        const fallback = process.env.AI_FALLBACK_MODEL ?? (baseUrl ? "" : "gemini-flash-lite-latest");
+        const fallback =
+          process.env.AI_FALLBACK_MODEL ?? (baseUrl ? "" : "gemini-flash-lite-latest");
         let res = await call(model);
         if (res.status >= 500) {
           console.error("AI upstream", res.status, "retrying", await res.text());
@@ -241,13 +275,23 @@ export const Route = createFileRoute("/api/chat")({
           res = await call(fallback);
         }
 
-        if (res.status === 429) return Response.json({ error: "Getting a lot of questions right now. Try again in a minute." }, { status: 429 });
-        if (res.status === 402) return Response.json({ error: "AI quota exhausted." }, { status: 402 });
+        if (res.status === 429)
+          return Response.json(
+            { error: "Getting a lot of questions right now. Try again in a minute." },
+            { status: 429 },
+          );
+        if (res.status === 402)
+          return Response.json({ error: "AI quota exhausted." }, { status: 402 });
         if (!res.ok) {
           const t = await res.text();
           console.error("AI gateway error", res.status, t);
           return Response.json(
-            { error: res.status >= 500 ? "The AI is busy right now. Please try again in a few seconds." : "AI request failed." },
+            {
+              error:
+                res.status >= 500
+                  ? "The AI is busy right now. Please try again in a few seconds."
+                  : "AI request failed.",
+            },
             { status: 502 },
           );
         }
