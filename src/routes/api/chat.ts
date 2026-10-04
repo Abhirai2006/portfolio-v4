@@ -31,7 +31,7 @@ SHIPPED PROJECTS
 6. Arthra: personal finance app for Indian users. INR stored as integer paise, April to March financial-year reports, shared Expense Spaces with Owner/Editor/Viewer roles, read-only report links for a CA, 60 automated tests.
 7. Ittige: scroll-driven site for a team business plan (21AI51) that turns plastic packaging waste into pavers and blocks in Mysuru. The block-making animation is drawn in code, and the cost numbers are shown honestly against clay bricks.
 8. Git & GitHub Viva Prep: static study site for the Project Management with Git lab viva, with 49 flashcards, a 20-question quiz, 6 debug drills and a command cheat sheet.
-9. Wonderland: a birthday website built as a personal gift. A countdown seal, a 3D cake with a live flame, photos, voice notes and a letter. Personal project, so no public links and no details about the recipient.
+9. Wonderland: a birthday website I built as a personal gift, phone-first. A countdown seal, a password gate with three versions of the page, a 3D cake with a candle you blow out, photo and video chapters, voice recordings and a letter. It is personal, so there are no public links and no details about the recipient. If asked who it is for or for personal details, say it is private.
 
 SKILLS
 - Proficient: Python, NumPy, Pandas, Scikit-learn (Pipelines, ColumnTransformer, CV), Git, Linear Algebra, Calculus
