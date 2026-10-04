@@ -313,7 +313,7 @@ export function ProjectOrbit({
           s.current.lastTouch = performance.now();
         }}
         onKeyDown={onKeyDown}
-        className="orbit-stage relative mx-auto h-[480px] w-full max-w-6xl select-none"
+        className="orbit-stage isolate relative mx-auto h-[480px] w-full max-w-6xl select-none"
         style={{ touchAction: "pan-y" }}
       >
         {/* decorative orbit: glow plus an ellipse the cards travel along */}
