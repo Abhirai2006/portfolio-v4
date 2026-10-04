@@ -1,4 +1,5 @@
 import type { Project } from "@/components/portfolio/ProjectModal";
+import type { Shot } from "@/lib/shots";
 import muse1 from "@/assets/projects/muse-1.png.asset.json";
 import muse2 from "@/assets/projects/muse-2.png.asset.json";
 import muse3 from "@/assets/projects/muse-3.png.asset.json";
@@ -8,6 +9,14 @@ import sort3 from "@/assets/projects/sort-3.png.asset.json";
 import bs1 from "@/assets/projects/bs-1.png.asset.json";
 import bs2 from "@/assets/projects/bs-2.png.asset.json";
 import bs3 from "@/assets/projects/bs-3.png.asset.json";
+
+// Live-site captures made by scripts/capture-projects.mjs. A site with a dark and a light theme gets
+// both files, and the visitor sees the one that matches their theme. `fallback` is used if neither exists.
+const liveShot = (slug: string, n: number, fallback?: string): Shot => ({
+  dark: `/media/live/${slug}-${n}-dark.jpg`,
+  light: `/media/live/${slug}-${n}-light.jpg`,
+  any: fallback ?? `/media/live/${slug}-${n}.jpg`,
+});
 
 export type Metric = { value: string; label: string };
 
@@ -86,7 +95,11 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "USN-verified anonymous grievance platform. Peer-voted complaints auto-escalate into formal PDF letters. Supabase RLS + security-definer RPCs so identities stay server-side.",
     tags: ["TanStack Start", "Supabase RLS", "Cloudflare"],
-    images: [muse1.url, muse2.url, muse3.url],
+    images: [
+      liveShot("muse", 1, muse1.url),
+      liveShot("muse", 2, muse2.url),
+      liveShot("muse", 3, muse3.url),
+    ],
     live: "https://muse-studentsvoice.lovable.app/",
     repo: "https://github.com/Abhirai2006",
     metrics: [
@@ -146,9 +159,9 @@ export const PROJECTS: ProjectEntry[] = [
     body: "A personal finance workspace built around how money actually works in India: INR with integer-paise storage, April to March financial years, GST references, shared Expense Spaces and read-only report links for a CA.",
     tags: ["TypeScript", "MySQL", "Vitest"],
     images: [
-      "/media/projects/arthra-1.jpg",
-      "/media/projects/arthra-2.jpg",
-      "/media/projects/arthra-3.jpg",
+      liveShot("arthra", 1, "/media/projects/arthra-1.jpg"),
+      liveShot("arthra", 2, "/media/projects/arthra-2.jpg"),
+      liveShot("arthra", 3, "/media/projects/arthra-3.jpg"),
       "/media/projects/arthra-4.jpg",
     ],
     live: "https://arthrafin-7qakibfj.manus.space",
@@ -201,6 +214,9 @@ export const PROJECTS: ProjectEntry[] = [
     body: "A scroll-driven site for our social enterprise plan in Mysuru: low-value plastic packaging melted with sand into pavers and blocks. The whole block-making animation is drawn in code, and the cost numbers are shown honestly, including where it loses to clay.",
     tags: ["JavaScript", "Three.js", "WebGL"],
     images: [
+      liveShot("ittige", 1),
+      liveShot("ittige", 2),
+      liveShot("ittige", 3),
       "/media/projects/ittige-1.jpg",
       "/media/projects/ittige-2.jpg",
       "/media/projects/ittige-3.jpg",
@@ -253,7 +269,12 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2025",
     body: "A deep sorting playground with 5 algorithms, pointer flags, pitch-based sound mode, step-by-step export, Race Mode with live leaderboard, Quiz Mode and an embeddable widget.",
     tags: ["TypeScript", "React", "Motion"],
-    images: [sort1.url, sort2.url, sort3.url, "/media/projects/o-patience-og.jpg"],
+    images: [
+      liveShot("o-patience", 1, sort1.url),
+      liveShot("o-patience", 2, sort2.url),
+      liveShot("o-patience", 3, sort3.url),
+      "/media/projects/o-patience-og.jpg",
+    ],
     live: "https://sort-visually-abhirai2006.lovable.app/",
     repo: "https://github.com/Abhirai2006",
     metrics: [
@@ -307,7 +328,11 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2025",
     body: "High-performance visualizer with real-time low/mid/high tracking and audio feedback per step. Demonstrates O(log n) narrowing visually.",
     tags: ["JavaScript", "Netlify"],
-    images: [bs1.url, bs2.url, bs3.url],
+    images: [
+      liveShot("binary-search", 1, bs1.url),
+      liveShot("binary-search", 2, bs2.url),
+      liveShot("binary-search", 3, bs3.url),
+    ],
     live: "https://binarysearch-abhirai.netlify.app/",
     repo: "https://github.com/Abhirai2006",
     metrics: [
@@ -350,6 +375,7 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A study site for our Project Management with Git lab viva: flashcards, a quiz, a debugging drill and a searchable command cheat sheet covering all 12 experiments. No backend, and progress is saved only in your own browser.",
     tags: ["TypeScript", "Three.js", "Netlify"],
+    images: [liveShot("git-viva", 1), liveShot("git-viva", 2), liveShot("git-viva", 3)],
     live: "https://git-github-by-abhirai2006.netlify.app/",
     repo: "https://github.com/Abhirai2006/git-and-GitHub",
     metrics: [
