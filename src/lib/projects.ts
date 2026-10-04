@@ -145,6 +145,12 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A personal finance workspace built around how money actually works in India: INR with integer-paise storage, April to March financial years, GST references, shared Expense Spaces and read-only report links for a CA.",
     tags: ["TypeScript", "MySQL", "Vitest"],
+    images: [
+      "/media/projects/arthra-1.jpg",
+      "/media/projects/arthra-2.jpg",
+      "/media/projects/arthra-3.jpg",
+      "/media/projects/arthra-4.jpg",
+    ],
     live: "https://arthrafin-7qakibfj.manus.space",
     repo: "https://github.com/Abhirai2006/arthra",
     metrics: [
@@ -194,6 +200,12 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A scroll-driven site for our social enterprise plan in Mysuru: low-value plastic packaging melted with sand into pavers and blocks. The whole block-making animation is drawn in code, and the cost numbers are shown honestly, including where it loses to clay.",
     tags: ["JavaScript", "Three.js", "WebGL"],
+    images: [
+      "/media/projects/ittige-1.jpg",
+      "/media/projects/ittige-2.jpg",
+      "/media/projects/ittige-3.jpg",
+      "/media/projects/ittige-4.jpg",
+    ],
     live: "https://ittige.vercel.app/",
     repo: "https://github.com/Abhirai2006/ittige",
     metrics: [
@@ -241,7 +253,7 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2025",
     body: "A deep sorting playground with 5 algorithms, pointer flags, pitch-based sound mode, step-by-step export, Race Mode with live leaderboard, Quiz Mode and an embeddable widget.",
     tags: ["TypeScript", "React", "Motion"],
-    images: [sort1.url, sort2.url, sort3.url],
+    images: [sort1.url, sort2.url, sort3.url, "/media/projects/o-patience-og.jpg"],
     live: "https://sort-visually-abhirai2006.lovable.app/",
     repo: "https://github.com/Abhirai2006",
     metrics: [
