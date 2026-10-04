@@ -53,6 +53,41 @@ I wrote the ML and algorithm projects myself. For the web side of this site I us
 | Chat and mood picks | Gemini API, called from the server |
 | Hosting | Cloudflare Workers, built with Bun and Vite |
 
+### How the pieces connect
+
+```mermaid
+flowchart TD
+    V(["Visitor"]) --> W["Cloudflare Worker<br/>server rendering and security headers"]
+    W --> PAGES["Pages: home, anime, resume, reviews, project case studies"]
+    W --> API["Server code: chat, anime functions, image proxy"]
+
+    PAGES -->|"reviews, visitor count, page events"| DB1[("Supabase<br/>portfolio database")]
+    PAGES -->|"recommendations and votes"| DB2[("Supabase<br/>anime database")]
+    PAGES -->|"live activity, cached 10 min"| GH["GitHub API"]
+
+    API -->|"chat replies, mood picks"| AI["Gemini API"]
+    API -->|"search and cover art"| KI["Kitsu catalogue"]
+    API --> DB2
+```
+
+### What happens when someone asks the chat a question
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant W as Worker
+    participant G as Gemini
+    B->>W: POST /api/chat
+    W->>W: same-origin check
+    W->>W: rate limit and input checks
+    W->>G: question plus resume context
+    alt Gemini is busy
+        W->>G: retry once, then a lighter model
+    end
+    G-->>W: streamed reply
+    W-->>B: typed out on screen
+```
+
 ## Run it locally
 
 You need Bun.
