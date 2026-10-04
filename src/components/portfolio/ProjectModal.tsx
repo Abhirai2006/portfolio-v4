@@ -13,7 +13,10 @@ export type Project = {
 
 export function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   const [i, setI] = useState(0);
-  const imgs = project.images && project.images.length > 0 ? project.images : [];
+  // images that fail to load are dropped, so a missing file never leaves a blank slide
+  const [broken, setBroken] = useState<string[]>([]);
+  const imgs = (project.images ?? []).filter((src) => !broken.includes(src));
+  const slide = Math.min(i, Math.max(0, imgs.length - 1));
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -47,12 +50,16 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
         </button>
 
         {/* Carousel */}
-        <div className="relative aspect-[16/9] bg-muted overflow-hidden rounded-t-2xl">
+        <div
+          className={`relative bg-muted overflow-hidden rounded-t-2xl ${
+            imgs.length > 0 || project.snippet ? "aspect-[16/9]" : "h-32"
+          }`}
+        >
           {imgs.length > 0 ? (
             <>
               <div
                 className="flex h-full transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${i * 100}%)` }}
+                style={{ transform: `translateX(-${slide * 100}%)` }}
               >
                 {imgs.map((src, idx) => (
                   <img
@@ -60,6 +67,7 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
                     src={src}
                     alt={`${project.title} screenshot ${idx + 1}`}
                     className="h-full w-full object-cover shrink-0"
+                    onError={() => setBroken((b) => (b.includes(src) ? b : [...b, src]))}
                   />
                 ))}
               </div>
@@ -86,7 +94,7 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
                         onClick={() => setI(idx)}
                         aria-label={`Slide ${idx + 1}`}
                         className={`h-1.5 rounded-full transition-all ${
-                          idx === i ? "w-6 bg-primary" : "w-1.5 bg-foreground/40"
+                          idx === slide ? "w-6 bg-primary" : "w-1.5 bg-foreground/40"
                         }`}
                       />
                     ))}
@@ -121,9 +129,8 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
               </pre>
             </div>
           ) : (
-            <div className="h-full w-full flex flex-col items-center justify-center text-muted-foreground font-mono text-xs uppercase tracking-widest gap-2 bg-gradient-to-br from-primary/10 via-transparent to-accent/10">
-              <div className="text-5xl font-display gold-text">{project.title[0]}</div>
-              <div>screenshots coming soon</div>
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 via-transparent to-accent/10">
+              <div className="text-6xl font-display gold-text">{project.title[0]}</div>
             </div>
           )}
         </div>
@@ -131,7 +138,9 @@ export function ProjectModal({ project, onClose }: { project: Project; onClose: 
         {/* Content */}
         <div className="p-6 sm:p-8 space-y-5">
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-widest text-primary">{project.tag}</div>
+            <div className="text-[10px] font-mono uppercase tracking-widest text-primary">
+              {project.tag}
+            </div>
             <h3 className="mt-2 font-display text-3xl sm:text-4xl">{project.title}</h3>
           </div>
           <p className="text-muted-foreground leading-relaxed">{project.body}</p>
