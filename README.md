@@ -137,11 +137,23 @@ If the chat says "AI is not configured yet", the key is in the wrong list.
 
 ## Media files
 
-Images and the font live in `public/media/`. Screenshots for Arthra, Ittige, O(patience) and the others are already in `public/media/projects/`. The three older projects (MUSE, O(patience), Binary Search) and the share image came from my old site. To pull them once:
+Images and the font live in `public/media/`. Screenshots of Arthra, Ittige and O(patience) taken from their own repos are in `public/media/projects/`.
+
+### Project screenshots in dark and light
+
+Each project's pop-up shows a screenshot that matches the theme the visitor is using. Dark and light versions live in `public/media/live/` as `<project>-<number>-dark.jpg` and `<project>-<number>-light.jpg`. A site with a single theme gets `<project>-<number>.jpg`. A missing file is skipped, so nothing breaks while they are being added.
+
+To capture them from the live sites (free, runs on your own computer):
 
 ```bash
-node scripts/fetch-assets.mjs
+npm i -D playwright
+node scripts/capture-projects.mjs            # all six sites
+node scripts/capture-projects.mjs --only muse
 ```
+
+The script loads each site in a real browser, works out whether it has two themes (from the browser setting, or by clicking the site's own theme button), checks the brightness of what was drawn so dark and light are never swapped, hides the host badge that free hosting adds, and saves up to three 1600 by 900 shots per theme.
+
+The three older projects (MUSE, O(patience), Binary Search) and the share image also have copies on my old site. To pull those once: `node scripts/fetch-assets.mjs`.
 
 ## Screenshots
 
