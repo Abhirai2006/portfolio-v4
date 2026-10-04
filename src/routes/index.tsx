@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Nav } from "@/components/portfolio/Nav";
 import { AskAbhishek } from "@/components/portfolio/AskAbhishek";
 import { GithubLive } from "@/components/portfolio/GithubLive";
+import { ProjectOrbit } from "@/components/portfolio/ProjectOrbit";
 import { ProjectModal, type Project } from "@/components/portfolio/ProjectModal";
 import { CursorGlow } from "@/components/portfolio/CursorGlow";
 import { MagicCard } from "@/components/portfolio/MagicCard";
@@ -15,7 +16,7 @@ import { hireMailto } from "@/lib/contact";
 import { PROJECTS } from "@/lib/projects";
 import { CommandPalette } from "@/components/portfolio/CommandPalette";
 import { track, observeSections, recordVisit } from "@/lib/analytics";
-import { Home, User, Github, FolderGit2, Sparkles, Clapperboard, Mail, ArrowUpRight } from "lucide-react";
+import { Home, User, Github, FolderGit2, Sparkles, Clapperboard, Mail, ArrowRight, ArrowUpRight } from "lucide-react";
 import portrait from "@/assets/abhishek-portrait.jpg.asset.json";
 import { SITE } from "@/lib/site";
 
@@ -407,80 +408,14 @@ function Projects() {
         Click any card for screenshots and the live site, or open the full case study for the problem,
         constraints, trade-offs and what actually shipped.
       </p>
-      <div
-        className="mt-10 grid gap-4 md:grid-cols-2"
-      >
-        {items.map((p, idx) => (
-          <MagicCard
-            key={p.title}
-            style={{ animationDelay: `${idx * 0.7}s` }}
-            onPointerEnter={() => setHoveringCard(true)}
-            onPointerLeave={() => setHoveringCard(false)}
-            className="breathe border border-border bg-card/50 hover:border-primary hover:shadow-xl hover:shadow-primary/10 transition-all"
-          >
-          <div className="group relative flex h-full flex-col">
-            <button
-              onClick={() => {
-                track("cta_click", `open_case_${p.title}`);
-                setActive(p);
-              }}
-              aria-label={`Open ${p.title} project preview`}
-              className="block w-full flex-1 cursor-pointer p-6 text-left"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-primary">{p.tag}</div>
-                  <h3 className="mt-2 font-display text-2xl">{p.title}</h3>
-                </div>
-                <span className="text-primary group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{p.body}</p>
-
-              <dl className="mt-5 grid grid-cols-3 gap-3 border-y border-border/70 py-3">
-                {PROJECTS[idx]?.metrics.map((m) => (
-                  <div key={m.label}>
-                    <dt className="sr-only">{m.label}</dt>
-                    <dd className="font-display text-xl leading-none gold-text">{m.value}</dd>
-                    <dd className="mt-1 text-xs font-mono uppercase tracking-wide text-muted-foreground leading-tight">
-                      {m.label}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground border border-border rounded-full px-2 py-0.5">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </button>
-            <div className="mt-auto px-6 pb-6 pt-1 flex flex-wrap items-center gap-4">
-              <Link
-                to="/projects/$slug"
-                params={{ slug: p.slug }}
-                onClick={() => track("cta_click", `read_case_${p.title}`)}
-                className="relative z-10 text-[10px] font-mono uppercase tracking-widest text-accent hover:text-primary underline underline-offset-4 md:cursor-pointer"
-              >
-                Read the full case study →
-              </Link>
-              {p.live && (
-                <a
-                  href={p.live}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="relative z-10 text-[10px] font-mono uppercase tracking-widest text-muted-foreground hover:text-primary md:cursor-pointer"
-                >
-                  Live site ↗
-                </a>
-              )}
-            </div>
-          </div>
-          </MagicCard>
-        ))}
-      </div>
+      <ProjectOrbit
+        projects={items}
+        onHoverCard={setHoveringCard}
+        onOpen={(p) => {
+          track("cta_click", `open_case_${p.title}`);
+          setActive(p);
+        }}
+      />
       {active && <ProjectModal project={active} onClose={() => setActive(null)} />}
       <Cursor visible={hoveringCard && !active}>
         <div className="hidden items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-primary-foreground shadow-lg md:flex">
@@ -520,14 +455,14 @@ function AnimeShelf() {
       >
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-3xl">
-            <p className="font-mono text-xs uppercase tracking-widest text-primary">Its own page</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-primary">Anime</p>
             <h2 className="mt-4 font-one-piece text-4xl leading-tight text-foreground sm:text-6xl">Abhi's Anime Shelf</h2>
             <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-              The Grand Line was too big for one portfolio section, so it got its own page: a scroll-driven 3D shelf of 60 titles, mood-based AI picks, random discoveries and live visitor recommendations.
+              Every anime I've finished, shelved in 3D. Scroll through 60 titles, ask the shelf for a pick by mood, or leave me a recommendation for what to watch next.
             </p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-2 font-mono text-sm uppercase tracking-widest text-primary">
-            Explore the shelf <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden="true" />
+            Open the shelf <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </span>
         </div>
       </Link>

@@ -315,3 +315,31 @@ html.light {
   --plank-edge: oklch(83% 0.02 250);
   --glow: oklch(55% 0.19 250 / 0.24);
 }
+
+/* ---------- project orbit ---------- */
+.orbit-glow {
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--primary) 22%, transparent), transparent 70%);
+  filter: blur(8px);
+}
+.orbit-ring {
+  width: min(80%, 960px);
+  height: 92px;
+  border: 1px dashed color-mix(in oklab, var(--primary) 32%, transparent);
+  border-radius: 50%;
+}
+@media (max-width: 639px) {
+  .orbit-ring {
+    width: 60%;
+    height: 52px;
+  }
+}
+.orbit-card[data-front="true"] .orbit-card-face {
+  border-color: color-mix(in oklab, var(--primary) 70%, transparent);
+  box-shadow: 0 24px 60px -24px color-mix(in oklab, var(--primary) 55%, transparent);
+}
+.orbit-stage {
+  cursor: grab;
+}
+.orbit-stage:active {
+  cursor: grabbing;
+}
