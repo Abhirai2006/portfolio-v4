@@ -4,6 +4,19 @@ My personal portfolio: https://portfolio.abhirai2006.workers.dev
 
 I'm a B.E. student in AI & ML at Mysore University. I made this site to show what I've built and to give recruiters a quick way to get answers about me without digging through links.
 
+![Home page hero](docs/screenshots/01-hero.png)
+
+<table>
+  <tr>
+    <td><img src="docs/screenshots/04-projects.png" alt="Projects on a rotating ring"></td>
+    <td><img src="docs/screenshots/09-project-modal.png" alt="A project opened with its screenshots"></td>
+  </tr>
+  <tr>
+    <td align="center">The Arsenal: projects on a ring you can spin</td>
+    <td align="center">Click a card to open it</td>
+  </tr>
+</table>
+
 ## What's on it
 
 - **Home page** with a 3D background, a short intro, live numbers and a nav dock at the bottom. Press `Cmd/Ctrl + K` to jump anywhere.
@@ -15,6 +28,17 @@ I'm a B.E. student in AI & ML at Mysore University. I made this site to show wha
 - **Résumé** at `/resume`, a clean printable version.
 
 Projects on the site right now: Customer Churn Intelligence System, MUSE Students Voice, Arthra, Ittige, Git & GitHub Viva Prep, O(patience), Binary Search Visualizer and my C++ console mini-suite.
+
+## A closer look
+
+| | |
+| --- | --- |
+| ![Power levels](docs/screenshots/02-power-levels.png) | ![Live GitHub activity](docs/screenshots/03-live-code.png) |
+| Skills and how well I know them | Live GitHub activity |
+| ![Ask Abhishek](docs/screenshots/06-ask.png) | ![Anime shelf card](docs/screenshots/05-anime.png) |
+| Ask Abhishek, the resume-only assistant | The way into the anime shelf |
+| ![Phone view](docs/screenshots/07-mobile-hero.png) | ![Contact](docs/screenshots/08-contact.png) |
+| On a phone | Contact |
 
 ## How it's built
 
