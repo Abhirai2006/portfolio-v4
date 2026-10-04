@@ -382,6 +382,49 @@ export const PROJECTS: ProjectEntry[] = [
     },
   },
   {
+    slug: "wonderland",
+    title: "Wonderland",
+    tag: "Gift project · Interactive story",
+    year: "2026",
+    body: "A one-page birthday website I built as a gift for someone close to me. A countdown keeps it sealed until midnight, a 3D cake has a candle you can blow out, and the rest is photos, voice recordings and a letter.",
+    tags: ["Three.js", "Animation"],
+    metrics: [
+      { value: "3D", label: "cake with a live flame" },
+      { value: "180+", label: "photos and clips checked by hand" },
+      { value: "1", label: "page, sealed until midnight" },
+    ],
+    caseStudy: {
+      summary:
+        "Wonderland is a birthday site I made as a gift. It was built for one person and meant to be opened on a phone.",
+      problem:
+        "I wanted to give something more personal than a message: a page that stays closed until the right moment, then opens into a small story.",
+      constraints: [
+        "It gets opened on a phone, so mobile comes first.",
+        "Photos and videos have to look right: rotated correctly, nothing stretched, no app buttons in the corners.",
+        "The page must not open before the birthday.",
+      ],
+      built: [
+        "A countdown seal that keeps the page locked until midnight on the day.",
+        "A 3D cake with a live flame. Hold the candle to blow it out and confetti follows.",
+        "Chapters of photos, a wall of polaroids that drop in one by one, a player for recorded voice notes and a handwritten letter at the end.",
+      ],
+      tradeoffs: [
+        {
+          choice: "Check every file by hand",
+          why: "Around 180 photos and clips were fixed one at a time (rotation, crops) instead of in a batch, so none of them looks off.",
+        },
+        {
+          choice: "A private link past the lock",
+          why: "I can preview the page before the date without removing the seal.",
+        },
+      ],
+      outcome: [
+        "Finished and given as a gift. It stays a personal project, so the live site and code are not linked here.",
+      ],
+      stack: ["Three.js", "Animation"],
+    },
+  },
+  {
     slug: "cpp-console-suite",
     title: "C++ Console Mini-Suite",
     tag: "OOP · Terminal",
