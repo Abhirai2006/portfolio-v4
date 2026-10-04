@@ -27,7 +27,7 @@ I'm a B.E. student in AI & ML at Mysore University. I made this site to show wha
 - **Reviews** at `/reviews`, where visitors can leave a note.
 - **Résumé** at `/resume`, a clean printable version.
 
-Projects on the site right now: Customer Churn Intelligence System, MUSE Students Voice, Arthra, Ittige, Git & GitHub Viva Prep, O(patience), Binary Search Visualizer and my C++ console mini-suite.
+Projects on the site right now: Customer Churn Intelligence System, MUSE Students Voice, Arthra, Ittige, Git & GitHub Viva Prep, Wonderland (a personal gift project, so no public links), O(patience), Binary Search Visualizer and my C++ console mini-suite.
 
 ## A closer look
 
@@ -137,7 +137,11 @@ If the chat says "AI is not configured yet", the key is in the wrong list.
 
 ## Media files
 
-Images, videos and the font live in `public/media/`. On a fresh clone, run `bash scripts/fetch-assets.sh` once to download the rest from my old site.
+Images and the font live in `public/media/`. Screenshots for Arthra, Ittige, O(patience) and the others are already in `public/media/projects/`. The three older projects (MUSE, O(patience), Binary Search) and the share image came from my old site. To pull them once:
+
+```bash
+node scripts/fetch-assets.mjs
+```
 
 ## Screenshots
 
