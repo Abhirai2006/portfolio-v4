@@ -84,6 +84,12 @@ async function openPage(url, colorScheme) {
         'a[href*="lovable.dev"][href*="badge"], a[href*="lovable-badge"], [id*="lovable-badge"] { display: none !important; }',
     })
     .catch(() => {});
+  // some pages draw nothing until their scripts finish, so wait for real text before shooting
+  await page
+    .waitForFunction(() => document.body && document.body.innerText.trim().length > 80, null, {
+      timeout: 12000,
+    })
+    .catch(() => {});
   await pause(2500); // let intro animations settle
   return page;
 }
