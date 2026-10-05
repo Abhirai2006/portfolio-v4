@@ -15,7 +15,8 @@ import bs3 from "@/assets/projects/bs-3.png.asset.json";
 const liveShot = (slug: string, n: number, fallback?: string): Shot => ({
   dark: `/media/live/${slug}-${n}-dark.jpg`,
   light: `/media/live/${slug}-${n}-light.jpg`,
-  any: fallback ?? `/media/live/${slug}-${n}.jpg`,
+  any: `/media/live/${slug}-${n}.jpg`,
+  ...(fallback ? { fallback } : {}),
 });
 
 export type Metric = { value: string; label: string };
@@ -375,7 +376,7 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A study site for our Project Management with Git lab viva: flashcards, a quiz, a debugging drill and a searchable command cheat sheet covering all 12 experiments. No backend, and progress is saved only in your own browser.",
     tags: ["TypeScript", "Three.js", "Netlify"],
-    images: [liveShot("git-viva", 1), liveShot("git-viva", 2), liveShot("git-viva", 3)],
+    images: [liveShot("git-viva", 1)],
     live: "https://git-github-by-abhirai2006.netlify.app/",
     repo: "https://github.com/Abhirai2006/git-and-GitHub",
     metrics: [
