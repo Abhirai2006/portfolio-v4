@@ -413,7 +413,7 @@ export const PROJECTS: ProjectEntry[] = [
     title: "Wonderland",
     tag: "Gift project · Interactive story",
     year: "2026",
-    body: "A one-page birthday website I built as a gift for someone close to me. A 3D cake with a candle you can blow out, chapters of photos and videos, a player for recorded voice notes and a handwritten-style letter at the end. A typed word decides which version of the page opens.",
+    body: "A birthday website I built as a gift, mainly for phones. It opens like a wrapped gift, then a 3D cake with a candle you hold to blow out, then chapters of photos and videos, voice recordings and a letter. The live link opens the guest version: the cake, the candle and the confetti, without any of the personal photos.",
     tags: ["Three.js", "Animation"],
     metrics: [
       { value: "164", label: "photos placed by hand" },
@@ -422,22 +422,23 @@ export const PROJECTS: ProjectEntry[] = [
     ],
     caseStudy: {
       summary:
-        "Wonderland is a birthday website I made as a gift, built phone-first because that is where it would be opened. It is personal, so the live site and the code are not linked here.",
+        "Wonderland is a birthday website I made as a gift, built mainly for phones. It is personal, so the live link opens a guest version with the cake, the candle and the confetti. The photos, recordings and letter stay in the private versions.",
       problem:
-        "A message felt too small for the day. I wanted to give something that unfolds slowly, stays closed until the right moment and feels like it was made for exactly one person.",
+        "A message felt too small for the day. I wanted to give something that unfolds slowly and feels like it was made for exactly one person, while still being something I could safely show to anyone else.",
       constraints: [
         "It would be opened on a phone, so everything is designed for a small screen first.",
         "Around 190 photos and videos plus 8 audio recordings had to load without making the page heavy.",
-        "Some parts were meant only for her, and some could be shown to family and friends.",
+        "Some parts were meant only for her, some for family, and guests must never see personal media.",
         "The page must not open before the day.",
       ],
       built: [
-        "A countdown seal that keeps the page locked until midnight on the birthday, with a private preview link for me to check it early.",
-        "A password gate where the typed word decides which of three versions of the page opens: the full one, a family one and a guest one.",
-        "A 3D cake with a live flame. You hold the candle to blow it out, and confetti follows. The 3D scene is loaded only when needed.",
-        "An age reveal where the old number is crossed out and the new one is struck in with a burst of sparks.",
-        "Photo chapters (childhood, printed photos, college, festival outfits, her pet dog, calls, last year's birthday), a wall of polaroids that drop in one by one, and a full-screen viewer for photos and videos.",
-        "A custom player for 8 voice recordings, and a closing letter.",
+        "An opening cover that looks like a wrapped gift and opens with confetti.",
+        "A 3D two-tier cake with a live candle flame. You hold to blow the candle out, and confetti follows.",
+        "An age reveal where the old number is replaced by the new one.",
+        "Photo chapters with captions, framing that respects portrait photos, a wall of polaroids and a full-screen viewer for photos and videos.",
+        "A custom player for 8 voice recordings, a few personal memory sections and a closing letter, all in the private version only.",
+        'Three versions of one page: guest, family and private. A typed word picks the version, the choice is remembered in the browser, and a "Switch word" link in the footer changes it.',
+        "A countdown seal that can keep the page locked until midnight on the birthday, with a private preview link for me.",
       ],
       tradeoffs: [
         {
@@ -445,17 +446,21 @@ export const PROJECTS: ProjectEntry[] = [
           why: "Photos and videos were rotated, cropped and cleaned up one at a time, so nothing looks stretched and no app buttons show in the corners.",
         },
         {
-          choice: "Check the password on the server",
-          why: "The words are never sent to the browser, so they cannot be read from the page. A server function checks the typed word and only returns which version to open.",
+          choice: "Check the words on the server",
+          why: "The words are never sent to the browser. A server function checks the typed word and only returns which version to open.",
         },
         {
-          choice: "A seal flag instead of a hard-coded date check",
-          why: "One setting turns the lock on or off, so I could open the page for review and lock it again without changing anything else.",
+          choice: "Filter media by version in one place",
+          why: "Items left out of a version are never rendered at all, not just hidden, so the guest view cannot leak a photo.",
+        },
+        {
+          choice: "A seal flag instead of a date check scattered around",
+          why: "One setting locks or opens the page, so I could review it and lock it again without touching anything else.",
         },
       ],
       outcome: [
         "Finished and given as a gift.",
-        "It stays a personal project: the page asks search engines not to list it, and I have not linked the live site or the code from this portfolio.",
+        "The live link shows the guest version only. I have not linked the code here, because the project holds personal photos and recordings.",
       ],
       stack: ["Three.js", "Animation"],
     },
