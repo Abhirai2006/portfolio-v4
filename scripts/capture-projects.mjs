@@ -11,6 +11,7 @@
 //   node scripts/capture-projects.mjs                  (all sites)
 //   node scripts/capture-projects.mjs --only muse      (one site)
 //   node scripts/capture-projects.mjs --url https://example.com --slug demo
+//   add --before "text=Enter" for a page that sits behind a start button
 //
 // It uses the Chrome you already have installed. If that fails, run
 // `npx playwright install chromium` once and try again.
@@ -21,9 +22,19 @@ const SITES = [
   { slug: "muse", url: "https://muse-studentsvoice.lovable.app/" },
   { slug: "arthra", url: "https://arthrafin-7qakibfj.manus.space/" },
   { slug: "ittige", url: "https://ittige.vercel.app/" },
-  { slug: "o-patience", url: "https://sort-visually-abhirai2006.lovable.app/" },
+  {
+    slug: "o-patience",
+    url: "https://sort-visually-abhirai2006.lovable.app/",
+    before: ["text=Enter"],
+  },
   { slug: "binary-search", url: "https://binarysearch-abhirai.netlify.app/" },
   { slug: "git-viva", url: "https://git-github-by-abhirai2006.netlify.app/" },
+  // guest view only: it shows the cake and no personal photos
+  {
+    slug: "wonderland",
+    url: "https://liliput-birthday.lovable.app/",
+    before: ["text=Just looking around"],
+  },
 ];
 
 const arg = (name) => {
@@ -34,7 +45,7 @@ const OUT = arg("out") ?? "public/media/live";
 const PER_SITE = Number(arg("shots") ?? 3);
 const VIEW = { width: 1600, height: 900 };
 const sites = arg("url")
-  ? [{ slug: arg("slug") ?? "site", url: arg("url") }]
+  ? [{ slug: arg("slug") ?? "site", url: arg("url"), before: arg("before") ? [arg("before")] : [] }]
   : SITES.filter((s) => !arg("only") || s.slug === arg("only"));
 
 mkdirSync(OUT, { recursive: true });
@@ -72,7 +83,7 @@ async function brightness(png) {
   }, png.toString("base64"));
 }
 
-async function openPage(url, colorScheme) {
+async function openPage(url, colorScheme, before = []) {
   const context = await browser.newContext({ viewport: VIEW, colorScheme, deviceScaleFactor: 1 });
   const page = await context.newPage();
   await page.goto(url, { waitUntil: "load", timeout: 60000 });
@@ -91,6 +102,15 @@ async function openPage(url, colorScheme) {
     })
     .catch(() => {});
   await pause(2500); // let intro animations settle
+  // some pages sit behind a start button (a splash screen, a guest option)
+  for (const sel of before) {
+    await page
+      .locator(sel)
+      .first()
+      .click({ timeout: 8000 })
+      .catch(() => console.log(`  could not click ${sel}`));
+    await pause(2500);
+  }
   return page;
 }
 
@@ -154,11 +174,11 @@ const save = (name, buf) => {
   console.log("  saved", name);
 };
 
-for (const { slug, url } of sites) {
+for (const { slug, url, before } of sites) {
   console.log(`\n${slug}  ${url}`);
   try {
-    const dark = await openPage(url, "dark");
-    const light = await openPage(url, "light");
+    const dark = await openPage(url, "dark", before);
+    const light = await openPage(url, "light", before);
     const [bd, bl] = [await brightness(await top(dark)), await brightness(await top(light))];
 
     if (Math.abs(bd - bl) > 0.2) {
