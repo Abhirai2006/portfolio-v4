@@ -415,6 +415,8 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A birthday website I built as a gift, mainly for phones. It opens like a wrapped gift, then a 3D cake with a candle you hold to blow out, then chapters of photos and videos, voice recordings and a letter. The live link opens the guest version: the cake, the candle and the confetti, without any of the personal photos.",
     tags: ["Three.js", "Animation"],
+    images: [liveShot("wonderland", 1), liveShot("wonderland", 2), liveShot("wonderland", 3)],
+    live: "https://liliput-birthday.lovable.app/",
     metrics: [
       { value: "164", label: "photos placed by hand" },
       { value: "24", label: "videos" },
