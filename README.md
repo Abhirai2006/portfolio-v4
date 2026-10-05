@@ -27,7 +27,7 @@ I'm a B.E. student in AI & ML at Mysore University. I made this site to show wha
 - **Reviews** at `/reviews`, where visitors can leave a note.
 - **Résumé** at `/resume`, a clean printable version.
 
-Projects on the site right now: Customer Churn Intelligence System, MUSE Students Voice, Arthra, Ittige, Git & GitHub Viva Prep, Wonderland (a personal gift project, so no public links), O(patience), Binary Search Visualizer and my C++ console mini-suite.
+Projects on the site right now: Customer Churn Intelligence System, MUSE Students Voice, Arthra, Ittige, Git & GitHub Viva Prep, Wonderland (a personal gift project, guest view only), O(patience), Binary Search Visualizer and my C++ console mini-suite.
 
 ## A closer look
 
