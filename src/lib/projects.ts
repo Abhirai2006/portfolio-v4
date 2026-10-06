@@ -329,11 +329,7 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2025",
     body: "High-performance visualizer with real-time low/mid/high tracking and audio feedback per step. Demonstrates O(log n) narrowing visually.",
     tags: ["JavaScript", "Netlify"],
-    images: [
-      liveShot("binary-search", 1, bs1.url),
-      liveShot("binary-search", 2, bs2.url),
-      liveShot("binary-search", 3, bs3.url),
-    ],
+    images: [liveShot("binary-search", 1, bs1.url), liveShot("binary-search", 2, bs2.url)],
     live: "https://binarysearch-abhirai.netlify.app/",
     repo: "https://github.com/Abhirai2006",
     metrics: [
@@ -376,7 +372,7 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A study site for our Project Management with Git lab viva: flashcards, a quiz, a debugging drill and a searchable command cheat sheet covering all 12 experiments. No backend, and progress is saved only in your own browser.",
     tags: ["TypeScript", "Three.js", "Netlify"],
-    images: [liveShot("git-viva", 1)],
+    images: [liveShot("git-viva", 1), liveShot("git-viva", 2), liveShot("git-viva", 3)],
     live: "https://git-github-by-abhirai2006.netlify.app/",
     repo: "https://github.com/Abhirai2006/git-and-GitHub",
     metrics: [
@@ -415,7 +411,7 @@ export const PROJECTS: ProjectEntry[] = [
     year: "2026",
     body: "A birthday website I built as a gift, mainly for phones. It opens like a wrapped gift, then a 3D cake with a candle you hold to blow out, then chapters of photos and videos, voice recordings and a letter. The live link opens the guest version: the cake, the candle and the confetti, without any of the personal photos.",
     tags: ["Three.js", "Animation"],
-    images: [liveShot("wonderland", 1), liveShot("wonderland", 2), liveShot("wonderland", 3)],
+    images: [liveShot("wonderland", 1), liveShot("wonderland", 2)],
     live: "https://liliput-birthday.lovable.app/",
     metrics: [
       { value: "164", label: "photos placed by hand" },
