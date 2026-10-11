@@ -130,7 +130,7 @@ function Hero({ visitorCount }: { visitorCount: number | null }) {
           <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
              Aspiring{" "}
              <span className="text-foreground font-medium">Machine Learning Engineer</span>. B.E. AI &amp; ML at
-             Mysore University · <span className="text-primary font-mono">GPA 9.31/10</span> · recently shipped a
+             Mysore University · <span className="text-primary font-mono">GPA 9.44/10</span> · recently shipped a
              production-ready Customer Churn Intelligence System with LightGBM and Streamlit.
           </p>
 
@@ -181,7 +181,7 @@ function Hero({ visitorCount }: { visitorCount: number | null }) {
           </div>
 
           <dl className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
-            <Kpi k="9.31" sub="GPA / 10" />
+            <Kpi k="9.44" sub="Avg GPA / 10" />
              <Kpi k="V" sub="Semester" />
             <Kpi k="3+1" sub="Web apps · C++ suite" />
             <VisitorKpi value={visitorCount} />
@@ -267,8 +267,8 @@ function Origin() {
             <p>
                <span className="text-foreground font-semibold">Abhishek Rai A</span>, a
                <span className="text-foreground"> B.E. AI &amp; ML</span> student at
-               <span className="text-foreground"> Mysore University School of Engineering</span>, entering my
-               fifth semester with a <span className="text-primary font-mono">9.31/10</span> GPA. Originally from
+               <span className="text-foreground"> Mysore University School of Engineering</span>, in my
+               fifth semester with a <span className="text-primary font-mono">9.44/10</span> average GPA. Originally from
                Mangalore, now in Mysuru.
             </p>
             <p>
