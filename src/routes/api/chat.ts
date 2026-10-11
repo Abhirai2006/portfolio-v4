@@ -12,7 +12,7 @@ Location: Mysuru, Karnataka (originally Mangalore)
 Languages spoken: Tulu (mother tongue), Kannada, Hindi, English
 
 EDUCATION
-- B.E. in Artificial Intelligence & Machine Learning, Mysore University School of Engineering (Sep 2024 to present). Average GPA 9.44/10 (the average of his four semester GPAs: 1st sem 9.400, 2nd sem 9.300, 3rd sem 9.227, 4th sem 9.818). Currently in 5th semester.
+- B.E. in Artificial Intelligence & Machine Learning, Mysore University School of Engineering (Sep 2024 to present). Average GPA 9.44/10, exactly 9.436 (the average of his four semester GPAs: 1st sem 9.400, 2nd sem 9.300, 3rd sem 9.227, 4th sem 9.818). Currently in 5th semester.
 - Ongoing AI & Data Science certification, DRISHTI CPS (Technology Innovation Hub of IIT Indore), via Intellipaat.
 - PUC (PCMB) at Gopalaswamy Independent PU College, Mysore (2022 to 2024), 90.15%.
 - SSLC at Gopalaswamy Shishuvihara High School (until 2022), 95%.
