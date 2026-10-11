@@ -103,7 +103,7 @@ function ResumePage() {
              sub="Mysore University School of Engineering · Average GPA 9.44 / 10 · V Semester"
           />
           <p className="-mt-2 mb-4 font-mono text-xs text-muted-foreground">
-            Semester GPA: 1st 9.400 · 2nd 9.300 · 3rd 9.227 · 4th 9.818
+            Semester GPA: 1st 9.400 · 2nd 9.300 · 3rd 9.227 · 4th 9.818 · Average 9.436
           </p>
           <Row
             left="Certification in AI & Data Science"
