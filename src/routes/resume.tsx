@@ -14,13 +14,13 @@ export const Route = createFileRoute("/resume")({
       {
         name: "description",
         content:
-          "Résumé of Abhishek Rai A. B.E. in Artificial Intelligence & Machine Learning at Mysore University, GPA 9.31/10. Projects, skills, coursework and contact details.",
+          "Résumé of Abhishek Rai A. B.E. in Artificial Intelligence & Machine Learning at Mysore University, average GPA 9.44/10. Projects, skills, coursework and contact details.",
       },
       { property: "og:title", content: "Résumé | Abhishek Rai A · Aspiring ML Engineer" },
       {
         property: "og:description",
         content:
-          "B.E. AI & ML, GPA 9.31/10. Full-stack and algorithm projects, Python/C++, and an ongoing DRISHTI CPS (IIT Indore) certification.",
+          "B.E. AI & ML, average GPA 9.44/10. Full-stack and algorithm projects, Python/C++, and an ongoing DRISHTI CPS (IIT Indore) certification.",
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: `${SITE}/resume` },
@@ -90,7 +90,7 @@ function ResumePage() {
 
         <Block title="Profile">
           <p className="text-muted-foreground leading-relaxed">
-             B.E. student in Artificial Intelligence &amp; Machine Learning entering the fifth semester with a 9.31/10 GPA.
+             B.E. student in Artificial Intelligence &amp; Machine Learning in the fifth semester with a 9.44/10 average GPA.
              Recently finished a 4-week (~120 hour) Core AI &amp; ML internship at Bluemind Solutions, where he
              shipped a Customer Churn Intelligence System with LightGBM and Streamlit.
           </p>
@@ -100,8 +100,11 @@ function ResumePage() {
           <Row
             left="B.E. in Artificial Intelligence & Machine Learning"
             right="2024 to 2028"
-             sub="Mysore University School of Engineering · GPA 9.31 / 10 · Entering V Semester"
+             sub="Mysore University School of Engineering · Average GPA 9.44 / 10 · V Semester"
           />
+          <p className="-mt-2 mb-4 font-mono text-xs text-muted-foreground">
+            Semester GPA: 1st 9.400 · 2nd 9.300 · 3rd 9.227 · 4th 9.818
+          </p>
           <Row
             left="Certification in AI & Data Science"
             right="Ongoing"
