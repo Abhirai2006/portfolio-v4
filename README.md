@@ -83,3 +83,75 @@ Every project has a full case study on the site: the problem, the constraints, w
 | **C++ Console Mini-Suite** | Tic-Tac-Toe, a mini banking system and Rock-Paper-Scissors, built to practise OOP and input handling. | [Case study](https://portfolio.abhirai2006.workers.dev/projects/cpp-console-suite) |
 | **Wonderland** | A birthday website I made as a personal gift. It is private, so the site shows a guest view only. | [Case study](https://portfolio.abhirai2006.workers.dev/projects/wonderland) |
 
+## How it fits together
+
+```mermaid
+flowchart TD
+    V(["Visitor"]) --> W["Cloudflare Worker<br/>server rendering and security headers"]
+    W --> PAGES["Pages: home, anime, resume, reviews, project case studies"]
+    W --> API["Server code: chat, anime functions, image proxy"]
+
+    PAGES -->|"reviews, visitor count, page events"| DB1[("Supabase<br/>portfolio database")]
+    PAGES -->|"recommendations and votes"| DB2[("Supabase<br/>anime database")]
+    PAGES -->|"live activity, cached 10 min"| GH["GitHub API"]
+
+    API -->|"chat replies, mood picks"| AI["Gemini API"]
+    API -->|"search and cover art"| KI["Kitsu catalogue"]
+    API --> DB2
+```
+
+What happens when someone asks the chat a question:
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant W as Worker
+    participant G as Gemini
+    B->>W: POST /api/chat
+    W->>W: same-origin check
+    W->>W: rate limit and input checks
+    W->>G: question plus résumé context
+    alt Gemini is busy
+        W->>G: retry once, then a lighter model
+    end
+    G-->>W: streamed reply
+    W-->>B: typed out on screen
+```
+
+## What it runs on
+
+| Part | What the code uses |
+| --- | --- |
+| App | TanStack Start with React and TypeScript |
+| Styling | Tailwind CSS 4 |
+| 3D | Three.js |
+| Database | Supabase (Postgres with row level security) |
+| Chat and mood picks | Gemini API, called from the server |
+| Hosting | Cloudflare Workers, built with Bun and Vite |
+
+## Getting started
+
+You need [Bun](https://bun.sh).
+
+```bash
+bun install
+cp .env.example .env   # then fill it in
+bun run dev
+```
+
+The dev server runs at http://localhost:8080.
+
+### Environment variables
+
+| Variable | Used for |
+| --- | --- |
+| `VITE_SITE_URL` | Public site address with no trailing slash. Used for canonical and share tags. |
+| `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID` | Public Supabase values, built into the page. |
+| `VITE_ANIME_SUPABASE_URL`, `VITE_ANIME_SUPABASE_PUBLISHABLE_KEY` | The database that holds the anime recommendations. |
+| `AI_API_KEY` | Gemini key for the chat and mood picks. **Secret, server only.** |
+| `AI_MODEL`, `AI_FALLBACK_MODEL` | Optional. Default to `gemini-flash-latest` and `gemini-flash-lite-latest`. |
+| `AI_BASE_URL` | Optional. Points the chat at an OpenAI-compatible provider instead of Gemini. |
+| `GITHUB_TOKEN` | Optional. Raises the GitHub API rate limit. **Secret.** |
+
+Only public values go in `.env`. Secrets such as `AI_API_KEY` are added in Cloudflare as Secrets and are never committed.
+
