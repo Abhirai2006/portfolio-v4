@@ -1,171 +1,48 @@
-# Abhishek Rai A, portfolio
+<div align="center">
 
-My personal portfolio: https://portfolio.abhirai2006.workers.dev
+# Abhishek Rai A
 
-I'm a B.E. student in AI & ML at Mysore University. I made this site to show what I've built and to give recruiters a quick way to get answers about me without digging through links.
+**Aspiring Machine Learning Engineer**<br>
+B.E. in AI & ML, Mysore University · Mysuru, India
 
-![Home page hero](docs/screenshots/01-hero.png)
+[![Live site](https://img.shields.io/badge/live-portfolio.abhirai2006.workers.dev-0ea5e9?style=for-the-badge)](https://portfolio.abhirai2006.workers.dev/)
+&nbsp;
+![Hosted on Cloudflare Workers](https://img.shields.io/badge/hosted_on-Cloudflare_Workers-f38020?style=for-the-badge)
 
-<table>
-  <tr>
-    <td><img src="docs/screenshots/04-projects.png" alt="Projects on a rotating ring"></td>
-    <td><img src="docs/screenshots/09-project-modal.png" alt="A project opened with its screenshots"></td>
-  </tr>
-  <tr>
-    <td align="center">The Arsenal: projects on a ring you can spin</td>
-    <td align="center">Click a card to open it</td>
-  </tr>
-</table>
+[**Live site**](https://portfolio.abhirai2006.workers.dev/) ·
+[Projects](https://portfolio.abhirai2006.workers.dev/#projects) ·
+[Anime shelf](https://portfolio.abhirai2006.workers.dev/anime) ·
+[Résumé](https://portfolio.abhirai2006.workers.dev/resume) ·
+[Reviews](https://portfolio.abhirai2006.workers.dev/reviews)
 
-## What's on it
+<br>
 
-- **Home page** with a 3D background, a short intro, live numbers and a nav dock at the bottom. Press `Cmd/Ctrl + K` to jump anywhere.
-- **GitHub activity** pulled live from the GitHub API (refreshed every 10 minutes), plus a contribution heatmap.
-- **The Arsenal**, my projects on a slowly turning ring. Drag it, flick it, use the arrows or the keyboard, and click a card to open it. Each project also has a full case study page.
-- **Ask Abhishek**, a small chat assistant. It only knows my resume and projects, and it won't make things up about me.
-- **Anime shelf** at `/anime`: every anime I've finished on a 3D shelf, with mood-based picks and recommendations from visitors.
-- **Reviews** at `/reviews`, where visitors can leave a note.
-- **Résumé** at `/resume`, a clean printable version.
+<img src="docs/screenshots/01-hero.png" alt="Home page of the portfolio" width="880">
 
-Projects on the site right now: Customer Churn Intelligence System, MUSE Students Voice, Arthra, Ittige, Git & GitHub Viva Prep, Wonderland (a personal gift project, guest view only), O(patience), Binary Search Visualizer and my C++ console mini-suite.
+</div>
 
-## A closer look
+<br>
+
+## Contents
+
+[Overview](#overview) · [Highlights](#highlights) · [Preview](#preview) · [Projects](#projects) · [How it fits together](#how-it-fits-together) · [What it runs on](#what-it-runs-on) · [Getting started](#getting-started) · [Database](#database) · [Deploying](#deploying) · [Scripts](#scripts) · [Project structure](#project-structure) · [Security](#security) · [Contact](#contact)
+
+## Overview
+
+This is my personal portfolio. It shows the projects I have built, my résumé and my GitHub activity, and it has a small assistant that answers questions about my background so a recruiter does not have to dig through links. There is also a side page with every anime I have finished, because it is a big part of how I spend my free time.
+
+I wrote the ML and algorithm projects myself. The web side of this site was built with AI tools as a copilot, so I list its stack below as what the code uses, not as skills I am claiming.
+
+## Highlights
 
 | | |
 | --- | --- |
-| ![Power levels](docs/screenshots/02-power-levels.png) | ![Live GitHub activity](docs/screenshots/03-live-code.png) |
-| Skills and how well I know them | Live GitHub activity |
-| ![Ask Abhishek](docs/screenshots/06-ask.png) | ![Anime shelf card](docs/screenshots/05-anime.png) |
-| Ask Abhishek, the resume-only assistant | The way into the anime shelf |
-| ![Phone view](docs/screenshots/07-mobile-hero.png) | ![Contact](docs/screenshots/08-contact.png) |
-| On a phone | Contact |
+| **Projects on a ring** | The Arsenal is a slowly turning 3D ring of project cards. Drag it, flick it, use the arrows or the keyboard, and click a card to open it. It respects reduced motion. |
+| **Screenshots that follow your theme** | Each project pop-up shows a dark or light screenshot to match the theme the visitor is using, and swaps when they flip the toggle. |
+| **Ask Abhishek** | A chat assistant that only knows my résumé and projects. It streams replies from the server, retries once if the model is busy, then falls back to a lighter model. |
+| **Live GitHub activity** | Recent repositories and a contribution heatmap, pulled from the GitHub API and cached for 10 minutes. |
+| **Anime shelf** | A scroll-driven 3D shelf of 60 titles at `/anime`, with mood-based picks, random discovery, a watch breakdown and recommendations from visitors. |
+| **Reviews and résumé** | Visitors can leave a review at `/reviews`. The résumé at `/resume` is a clean page that prints well. |
+| **Jump anywhere** | Press `Cmd/Ctrl + K` to open a command palette for chapters, case studies and contact options. |
+| **Careful with data** | Anonymous page events only, no personal data. Visitors can add reviews and recommendations but cannot edit or delete anything. |
 
-## How it's built
-
-I wrote the ML and algorithm projects myself. For the web side of this site I used AI tools as a copilot, so I'm not listing it as a skill. This is just what the code uses:
-
-| Part | What it uses |
-| --- | --- |
-| App | TanStack Start with React and TypeScript |
-| Styling | Tailwind CSS 4 |
-| 3D | Three.js |
-| Database | Supabase (Postgres with row level security) |
-| Chat and mood picks | Gemini API, called from the server |
-| Hosting | Cloudflare Workers, built with Bun and Vite |
-
-### How the pieces connect
-
-```mermaid
-flowchart TD
-    V(["Visitor"]) --> W["Cloudflare Worker<br/>server rendering and security headers"]
-    W --> PAGES["Pages: home, anime, resume, reviews, project case studies"]
-    W --> API["Server code: chat, anime functions, image proxy"]
-
-    PAGES -->|"reviews, visitor count, page events"| DB1[("Supabase<br/>portfolio database")]
-    PAGES -->|"recommendations and votes"| DB2[("Supabase<br/>anime database")]
-    PAGES -->|"live activity, cached 10 min"| GH["GitHub API"]
-
-    API -->|"chat replies, mood picks"| AI["Gemini API"]
-    API -->|"search and cover art"| KI["Kitsu catalogue"]
-    API --> DB2
-```
-
-### What happens when someone asks the chat a question
-
-```mermaid
-sequenceDiagram
-    participant B as Browser
-    participant W as Worker
-    participant G as Gemini
-    B->>W: POST /api/chat
-    W->>W: same-origin check
-    W->>W: rate limit and input checks
-    W->>G: question plus resume context
-    alt Gemini is busy
-        W->>G: retry once, then a lighter model
-    end
-    G-->>W: streamed reply
-    W-->>B: typed out on screen
-```
-
-## Run it locally
-
-You need Bun.
-
-```bash
-bun install
-cp .env.example .env   # then fill it in
-bun run dev
-```
-
-The dev server runs on http://localhost:8080.
-
-### Environment variables
-
-| Variable | Used for |
-| --- | --- |
-| `VITE_SITE_URL` | Public site address (no trailing slash). Used for canonical and share tags. |
-| `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID` | Public Supabase values, built into the page. |
-| `VITE_ANIME_SUPABASE_URL`, `VITE_ANIME_SUPABASE_PUBLISHABLE_KEY` | The database that holds the anime recommendations. |
-| `AI_API_KEY` | Gemini key for the chat and mood picks. **Secret, server only.** |
-| `AI_MODEL`, `AI_FALLBACK_MODEL` | Optional. Default to `gemini-flash-latest` and `gemini-flash-lite-latest`. |
-| `AI_BASE_URL` | Optional. Point the chat at an OpenAI-compatible provider instead of Gemini. |
-| `GITHUB_TOKEN` | Optional. Raises the GitHub API rate limit. **Secret.** |
-
-Only public values go in `.env`. Secrets such as `AI_API_KEY` are added in Cloudflare as Secrets and never committed.
-
-## Database
-
-Reviews, the visitor counter and anonymous page events live in Supabase. To set up your own copy, create a project, open the SQL editor and run `supabase/setup.sql` once. The same steps are split into single files in `supabase/migrations/`.
-
-Visitors can read and add rows, but they can't edit or delete anything. More in [SECURITY.md](SECURITY.md).
-
-## Deploying
-
-The site runs on Cloudflare Workers and rebuilds on every push to `main`.
-
-- Build command: `bun run build`
-- Deploy command: `npx wrangler deploy`
-- Worker name: `portfolio` (set in `vite.config.ts`, it has to match the dashboard)
-
-Cloudflare keeps two separate lists of variables:
-
-- **Settings, Build, Variables and secrets** is for build-time values: `VITE_SITE_URL` and the `VITE_SUPABASE_*` ones.
-- **Settings, Variables and Secrets** is for what the running site reads: `AI_API_KEY` (add it as a **Secret**), `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`.
-
-If the chat says "AI is not configured yet", the key is in the wrong list.
-
-## Media files
-
-Images and the font live in `public/media/`. Screenshots of Arthra, Ittige and O(patience) taken from their own repos are in `public/media/projects/`.
-
-### Project screenshots in dark and light
-
-Each project's pop-up shows a screenshot that matches the theme the visitor is using. Dark and light versions live in `public/media/live/` as `<project>-<number>-dark.jpg` and `<project>-<number>-light.jpg`. A site with a single theme gets `<project>-<number>.jpg`. A missing file is skipped, so nothing breaks while they are being added.
-
-To capture them from the live sites (free, runs on your own computer):
-
-```bash
-npm i -D playwright
-node scripts/capture-projects.mjs            # all six sites
-node scripts/capture-projects.mjs --only muse
-```
-
-The script loads each site in a real browser, works out whether it has two themes (from the browser setting, or by clicking the site's own theme button), checks the brightness of what was drawn so dark and light are never swapped, hides the host badge that free hosting adds, and saves up to three 1600 by 900 shots per theme.
-
-The three older projects (MUSE, O(patience), Binary Search) and the share image also have copies on my old site. To pull those once: `node scripts/fetch-assets.mjs`.
-
-## Screenshots
-
-To regenerate the images in `docs/screenshots/` from the live site:
-
-```bash
-npm i -D playwright && npx playwright install chromium
-node scripts/screenshots.mjs https://portfolio.abhirai2006.workers.dev
-```
-
-## Contact
-
-Email: abhirai2006@gmail.com
-GitHub: [Abhirai2006](https://github.com/Abhirai2006)
-LinkedIn: [abhishek-rai-a-00067238b](https://www.linkedin.com/in/abhishek-rai-a-00067238b)
