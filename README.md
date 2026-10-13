@@ -155,3 +155,85 @@ The dev server runs at http://localhost:8080.
 
 Only public values go in `.env`. Secrets such as `AI_API_KEY` are added in Cloudflare as Secrets and are never committed.
 
+## Database
+
+Reviews, the visitor counter and anonymous page events live in Supabase. To set up your own copy, create a project, open the SQL editor and run `supabase/setup.sql` once. The same steps are split into single files in `supabase/migrations/`.
+
+Visitors can read and add rows. They cannot edit or delete anything. Details are in [SECURITY.md](SECURITY.md).
+
+## Deploying
+
+The site runs on Cloudflare Workers and rebuilds on every push to `main`.
+
+| Setting | Value |
+| --- | --- |
+| Build command | `bun run build` |
+| Deploy command | `npx wrangler deploy` |
+| Worker name | `portfolio` (set in `vite.config.ts`, it has to match the dashboard) |
+
+Cloudflare keeps two separate lists of variables:
+
+- **Settings, Build, Variables and secrets** is for build-time values: `VITE_SITE_URL` and the `VITE_SUPABASE_*` ones.
+- **Settings, Variables and Secrets** is for what the running site reads: `AI_API_KEY` (add it as a **Secret**), `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`.
+
+If the chat says "AI is not configured yet", the key is in the wrong list.
+
+## Scripts
+
+| Command | What it does |
+| --- | --- |
+| `bun run dev` | Starts the dev server. |
+| `bun run build` | Builds the Worker and the static files. |
+| `bun run lint` and `bun run format` | Checks and formats the code. |
+| `node scripts/capture-projects.mjs` | Takes dark and light screenshots of the live project sites into `public/media/live/`. It works out whether a site has two themes, checks brightness so they are never swapped, and hides host badges. Add `--only <name>` for one site. |
+| `node scripts/screenshots.mjs <url>` | Retakes the README images in `docs/screenshots/` from a running copy of the site. |
+| `node scripts/fetch-assets.mjs` | Downloads the share image and older project screenshots from my previous site, once. |
+
+Project screenshots are named `<project>-<number>-dark.jpg` and `<project>-<number>-light.jpg`, or `<project>-<number>.jpg` for sites with a single theme. A missing file is skipped, so nothing breaks while they are added.
+
+## Project structure
+
+```
+.
+├── src/
+│   ├── routes/          Pages (home, anime, resume, reviews, case studies) and API routes
+│   ├── components/
+│   │   ├── portfolio/   Home page sections: hero, project ring, chat, GitHub activity
+│   │   ├── anime/       The anime shelf
+│   │   ├── motion/      Shared motion helpers
+│   │   └── ui/          Base UI components
+│   ├── lib/             Project data, server functions, abuse guards, helpers
+│   ├── data/            The anime collection
+│   ├── server.ts        Response wrapper and security headers
+│   └── styles.css       Theme and design tokens (anime.css holds the shelf styles)
+├── supabase/            Migrations and a one-file setup script
+├── public/              Static files and media, including project screenshots
+├── scripts/             Screenshot and media tools
+├── docs/screenshots/    Images used in this README
+├── SECURITY.md          What is public, what is secret, and how writes are locked down
+└── vite.config.ts       Build settings and the Cloudflare Worker config
+```
+
+## Security
+
+- Secrets live only in Cloudflare as Secrets. The built files were scanned for keys and none were found.
+- Every table has row level security. Visitors can add reviews and recommendations but cannot change or delete anything.
+- The chat and anime endpoints check the request origin, validate input and limit how often one visitor can call them.
+- The image proxy only fetches raster images from the anime catalogue host and does not follow redirects.
+- Every response carries a content security policy and the usual protective headers.
+
+The full list, and what to do if a key leaks, is in [SECURITY.md](SECURITY.md).
+
+## Contact
+
+Looking for internships. Available for interviews.
+
+[Email](mailto:abhirai2006@gmail.com) · [GitHub](https://github.com/Abhirai2006) · [LinkedIn](https://www.linkedin.com/in/abhishek-rai-a-00067238b/) · [Portfolio](https://portfolio.abhirai2006.workers.dev/)
+
+<br>
+
+<div align="center">
+
+Made by Abhishek Rai A in Mysuru, India.
+
+</div>
