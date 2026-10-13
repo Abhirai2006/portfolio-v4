@@ -46,3 +46,40 @@ I wrote the ML and algorithm projects myself. The web side of this site was buil
 | **Jump anywhere** | Press `Cmd/Ctrl + K` to open a command palette for chapters, case studies and contact options. |
 | **Careful with data** | Anonymous page events only, no personal data. Visitors can add reviews and recommendations but cannot edit or delete anything. |
 
+## Preview
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/04-projects.png" alt="Projects on a rotating ring"><br><sub>The Arsenal: projects on a ring you can spin</sub></td>
+    <td align="center"><img src="docs/screenshots/09-project-modal.png" alt="A project opened with its screenshots"><br><sub>Click a card to open it</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/02-power-levels.png" alt="Skills section"><br><sub>Skills and how well I know them</sub></td>
+    <td align="center"><img src="docs/screenshots/03-live-code.png" alt="Live GitHub activity"><br><sub>Live GitHub activity</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/06-ask.png" alt="Ask Abhishek chat"><br><sub>Ask Abhishek, the résumé-only assistant</sub></td>
+    <td align="center"><img src="docs/screenshots/05-anime.png" alt="Anime shelf entry card"><br><sub>The way into the anime shelf</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/07-mobile-hero.png" alt="Phone view" width="260"><br><sub>On a phone</sub></td>
+    <td align="center"><img src="docs/screenshots/08-contact.png" alt="Contact section"><br><sub>Contact</sub></td>
+  </tr>
+</table>
+
+## Projects
+
+Every project has a full case study on the site: the problem, the constraints, what was built, the trade-offs and the outcome.
+
+| Project | What it is | Links |
+| --- | --- | --- |
+| **Customer Churn Intelligence System** | Capstone of my Bluemind Solutions AI/ML internship. An end-to-end tabular ML system on the IBM Telco churn data with leak-free preprocessing, model comparison and stratified 5-fold cross-validation. ROC-AUC 0.849, 82% churner recall. | [Case study](https://portfolio.abhirai2006.workers.dev/projects/customer-churn-intelligence-system) |
+| **MUSE Students Voice** | A USN-verified anonymous grievance platform. Peer-voted complaints escalate automatically into formal PDF letters. | [Live](https://muse-studentsvoice.lovable.app/) · [Case study](https://portfolio.abhirai2006.workers.dev/projects/muse-students-voice) |
+| **Arthra** | Personal finance for India: INR stored as integer paise, April to March financial years, shared Expense Spaces and read-only report links. 60 automated tests. | [Live](https://arthrafin-7qakibfj.manus.space) · [Code](https://github.com/Abhirai2006/arthra) · [Case study](https://portfolio.abhirai2006.workers.dev/projects/arthra) |
+| **Ittige** | A scroll-driven site for our team's plastic-to-paver business plan in Mysuru, with honest cost numbers. | [Live](https://ittige.vercel.app/) · [Code](https://github.com/Abhirai2006/ittige) · [Case study](https://portfolio.abhirai2006.workers.dev/projects/ittige) |
+| **Git & GitHub Viva Prep** | A study site for our Git lab viva: flashcards, a quiz, a debugging drill and a command cheat sheet. | [Live](https://git-github-by-abhirai2006.netlify.app/) · [Code](https://github.com/Abhirai2006/git-and-GitHub) · [Case study](https://portfolio.abhirai2006.workers.dev/projects/git-github-viva-prep) |
+| **O(patience)** | An interactive sorting visualizer built to make algorithm behaviour easy to see. | [Live](https://sort-visually-abhirai2006.lovable.app/) · [Case study](https://portfolio.abhirai2006.workers.dev/projects/o-patience) |
+| **Binary Search Visualizer** | A plain-JavaScript visualizer that shows the range narrowing step by step. | [Live](https://binarysearch-abhirai.netlify.app/) · [Case study](https://portfolio.abhirai2006.workers.dev/projects/binary-search-visualizer) |
+| **C++ Console Mini-Suite** | Tic-Tac-Toe, a mini banking system and Rock-Paper-Scissors, built to practise OOP and input handling. | [Case study](https://portfolio.abhirai2006.workers.dev/projects/cpp-console-suite) |
+| **Wonderland** | A birthday website I made as a personal gift. It is private, so the site shows a guest view only. | [Case study](https://portfolio.abhirai2006.workers.dev/projects/wonderland) |
+
